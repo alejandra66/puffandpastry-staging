@@ -15,7 +15,8 @@ This repo mirrors the **unpublished Staging theme** in Shopify.
    - [3. Commit & push your work](#3-commit--push-your-work)  
    - [4. Open a Pull Request](#4-open-a-pull-request)  
    - [5. Deploy to Staging](#5-deploy-to-staging)  
-   - [6. QA & Publish](#6-qa--publish)  
+   - [6. QA & Publish](#6-qa--publish)
+       
 [🛠️ Setup (reference for future me)](#️-setup-reference-for-future-me)
 
 ---
