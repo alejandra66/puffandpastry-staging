@@ -1,0 +1,101 @@
+{% comment %}
+Header – Simple Dropdown (transparent on home, solid elsewhere)
+- Logo upload (desktop + optional mobile)
+- Main menu with dropdowns directly under hovered word
+- Font picker (no default; falls back to theme paragraph font)
+- Adjustable spacing & padding
+- White text/icons; custom colors available
+- Live cart bubble (updates after add-to-cart)
+{% endcomment %}
+
+{%- liquid
+  assign is_home = false
+  if template.name == 'index'
+    assign is_home = true
+  endif
+
+  assign menu_handle = section.settings.menu | default: 'main-menu'
+-%}
+
+{%- if section.settings.nav_font -%}
+  <style>
+    {{ section.settings.nav_font | font_face }}
+  </style>
+{%- endif -%}
+
+<header
+  class="header-simple {% if is_home %}header--transparent{% else %}header--solid{% endif %}"
+  style="
+    --nav-font-family: {% if section.settings.nav_font %}{{ section.settings.nav_font.family | json }}, {{ section.settings.nav_font.fallback_families | json }}{% else %}'Work Sans', sans-serif{% endif %};
+    --nav-font-size: {{ section.settings.nav_font_size | default: 18 }}px;
+    --nav-gap: {{ section.settings.link_gap | default: 20 }}px;
+    --header-pad-y: {{ section.settings.header_pad_y | default: 16 }}px;
+    --nav-color: {{ section.settings.nav_color }};
+    --nav-hover-color: {{ section.settings.nav_hover_color }};
+    --header-solid-bg: {{ section.settings.solid_bg }};
+  "
+  data-sticky="true"
+  role="banner"
+>
+  <div class="header-inner page-width">
+    <a class="header-logo" href="{{ routes.root_url }}" aria-label="{{ shop.name }}">
+      {%- if section.settings.logo != blank -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag:
+          alt: shop.name,
+          class: 'logo-img logo-img--desktop',
+          widths: '120,160,220,240,320,400' }}
+      {%- endif -%}
+
+      {%- if section.settings.logo_mobile != blank -%}
+        {{ section.settings.logo_mobile | image_url: width: 300 | image_tag:
+          alt: shop.name,
+          class: 'logo-img logo-img--mobile',
+          widths: '120,160,220,240,300' }}
+      {%- endif -%}
+    </a>
+
+    {%- if menu_handle != blank -%}
+      <nav class="header-nav" role="navigation">
+        {%- render 'menu', handle: menu_handle -%}
+      </nav>
+    {%- endif -%}
+
+    <div class="header-icons">
+      <a href="{{ routes.search_url }}" class="icon icon-search" aria-label="Search">{% render 'icon-search' %}</a>
+      <a href="{{ routes.account_url }}" class="icon icon-account" aria-label="Account">{% render 'icon-account' %}</a>
+      <a href="{{ routes.cart_url }}" class="icon icon-cart" aria-label="Cart">
+        {% render 'icon-cart' %}
+        <span class="cart-count-bubble" data-cart-count>{{ cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header (Simple Dropdown)",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" },
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "image_picker", "id": "logo_mobile", "label": "Logo (mobile optional)" },
+    {
+      "type": "font_picker",
+      "id": "nav_font",
+      "label": "Navigation font",
+      "default": "work_sans_n4"
+    },
+    { "type": "range", "id": "nav_font_size", "label": "Nav font size (px)", "min": 12, "max": 28, "step": 1, "default": 18 },
+    { "type": "range", "id": "link_gap", "label": "Space between links (px)", "min": 8, "max": 48, "step": 1, "default": 20 },
+    { "type": "range", "id": "header_pad_y", "label": "Header vertical padding (px)", "min": 6, "max": 36, "step": 1, "default": 16 },
+    { "type": "color", "id": "nav_color", "label": "Nav text/icon color", "default": "#FFFFFF" },
+    { "type": "color", "id": "nav_hover_color", "label": "Nav hover color", "default": "#FFFFFF" },
+    { "type": "color", "id": "solid_bg", "label": "Solid header background (non-home)", "default": "#0f1b2d" }
+  ],
+  "presets": [
+    { "name": "Header (Simple Dropdown)" }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}
