@@ -1,0 +1,68 @@
+/*!
+@pnp-id: age-gate
+purpose: Styles for 21+ modal
+owner: Alejandra
+*/
+.age-gate__modal {
+    position: relative;
+    max-width: 480px;
+    margin: 15vh auto 0;
+    background: #faf9f6; /* soft ivory background */
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.25);
+    outline: none;
+    text-align: center;
+    font-family: inherit; /* uses your theme font */
+}
+
+.age-gate__title {
+    margin: 0 0 12px;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: #14213d; /* navy */
+}
+
+.age-gate__desc {
+    margin: 0 0 18px;
+    color: #333;
+    font-size: 1rem;
+}
+
+.age-gate__actions {
+    display: flex;
+    gap: 16px;
+    margin-top: 20px;
+}
+
+.age-gate__btn {
+    flex: 1;
+    padding: 14px 20px;
+    border-radius: 12px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.age-gate__btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.age-gate__btn--yes {
+    background: #fca311; /* your warm golden accent */
+    color: #fff;
+}
+
+.age-gate__btn--no {
+    background: #fff;
+    border: 2px solid #fca311;
+    color: #14213d;
+}
+
+.age-gate__note {
+    margin-top: 16px;
+    font-size: 0.85rem;
+    color: #555;
+}

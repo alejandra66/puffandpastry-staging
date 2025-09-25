@@ -50,6 +50,16 @@
       data-template="{{ template }}"
     >
       {{ content_for_layout }}
+      {%- comment -%} @pnp-id: age-gate
+      purpose: Homepage 21+ modal with overlay
+      owner: Alejandra
+      created: 2025-09-25
+      entrypoint: layout/theme.liquid ( {% render 'pnp-age-gate' %} )
+      related: assets/pnp-age-gate.css, assets/pnp-age-gate.js
+      notes: Shows every time on homepage; remembers on other pages.
+      {%- endcomment -%}
+      {% render 'pnp-age-gate' %}
+      {%- comment -%} PNP: custom includes end {%- endcomment -%}
     </main>
 
     {% sections 'footer-group' %}
