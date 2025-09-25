@@ -731,7 +731,7 @@
         "group_48eDfw": {
           "type": "group",
           "settings": {
-            "link": "shopify://products/smores-cookie-50mg",
+            "link": "shopify://products/lemon-blueberry-cookie",
             "open_in_new_tab": false,
             "content_direction": "column",
             "vertical_on_mobile": true,
@@ -821,7 +821,7 @@
               "type": "button",
               "settings": {
                 "label": "See Details",
-                "link": "shopify://products/smores-cookie-50mg",
+                "link": "shopify://products/lemon-blueberry-cookie",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",
@@ -1052,7 +1052,7 @@
         "image_iLBfTP": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/3.png",
+            "image": "shopify://shop_images/Untitled_1000_x_1000_px_1.png",
             "link": "",
             "image_ratio": "adapt",
             "width": "custom",
@@ -1221,7 +1221,7 @@
         "image_VLdawY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/4.png",
+            "image": "shopify://shop_images/Untitled_1000_x_1000_px.png",
             "link": "",
             "image_ratio": "adapt",
             "width": "custom",
@@ -1282,7 +1282,7 @@
               "type": "text",
               "name": "t:names.heading",
               "settings": {
-                "text": "<h1><strong>Lemon Blueberry Poppy Seed </strong></h1>",
+                "text": "<h1><strong>Lemon Blueberry </strong></h1>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1307,7 +1307,7 @@
             "text_4xJLGG": {
               "type": "text",
               "settings": {
-                "text": "<p>A bright, chewy cookie bursting with fresh lemon zest, juicy blueberries, and poppy seeds, finished with a silky lemon glaze. Sweet, tangy, and refreshingly bold like sunshine in every bite.</p>",
+                "text": "<p>A bright, chewy cookie bursting with fresh lemon zest, juicy blueberries. Sweet, tangy, and refreshingly bold like sunshine in every bite.</p>",
                 "width": "fit-content",
                 "max_width": "normal",
                 "alignment": "left",
@@ -1333,7 +1333,7 @@
               "type": "product-card",
               "name": "t:names.product_card",
               "settings": {
-                "product": "lemon-blueberry-poppy-seed",
+                "product": "brown-butter-maple-pecan",
                 "product_card_gap": 4,
                 "inherit_color_scheme": true,
                 "color_scheme": "",
@@ -1353,7 +1353,7 @@
               "name": "t:names.button",
               "settings": {
                 "label": "See Details",
-                "link": "shopify://products/lemon-blueberry-poppy-seed",
+                "link": "shopify://products/brown-butter-maple-pecan",
                 "open_in_new_tab": false,
                 "style_class": "button",
                 "width": "fit-content",

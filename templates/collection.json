@@ -24,7 +24,7 @@
         "section_width": "full-width",
         "section_height": "",
         "section_height_custom": 50,
-        "color_scheme": "scheme-5",
+        "color_scheme": "scheme-3",
         "background_media": "image",
         "video_position": "cover",
         "background_image_position": "cover",
@@ -36,8 +36,8 @@
         "overlay_color": "#1b263b",
         "overlay_style": "solid",
         "gradient_direction": "to top",
-        "padding-block-start": 16,
-        "padding-block-end": 3
+        "padding-block-start": 0,
+        "padding-block-end": 0
       }
     },
     "main": {
@@ -56,7 +56,7 @@
             "enable_sorting": true,
             "enable_grid_density": false,
             "inherit_color_scheme": false,
-            "color_scheme": "scheme-7",
+            "color_scheme": "scheme-2",
             "padding-block-start": 8,
             "padding-block-end": 8,
             "padding-inline-start": 40,
@@ -120,7 +120,7 @@
                 "height": "fit",
                 "custom_height": 100,
                 "inherit_color_scheme": false,
-                "color_scheme": "scheme-2",
+                "color_scheme": "scheme-b8164878-5c14-4753-9791-373bc0080a58",
                 "background_media": "none",
                 "video_position": "cover",
                 "background_image_position": "cover",
@@ -184,7 +184,7 @@
                         "show_sale_price_first": true,
                         "show_installments": false,
                         "show_tax_info": false,
-                        "type_preset": "paragraph",
+                        "type_preset": "h4",
                         "width": "fit-content",
                         "alignment": "right",
                         "font": "var(--font-body--family)",
@@ -298,7 +298,7 @@
         "columns_gap_vertical": 1,
         "padding-inline-start": 0,
         "padding-inline-end": 0,
-        "color_scheme": "scheme-e35b0c68-8f65-4d0e-90c8-a99f8a59ceb0",
+        "color_scheme": "scheme-5",
         "padding-block-start": 0,
         "padding-block-end": 1
       }

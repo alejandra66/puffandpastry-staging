@@ -117,7 +117,7 @@
                   "type": "menu",
                   "name": "t:names.menu",
                   "settings": {
-                    "menu": "",
+                    "menu": "ask",
                     "heading": "Ask",
                     "menu_spacing": 4,
                     "show_as_accordion": false,
@@ -138,8 +138,29 @@
                   "type": "menu",
                   "name": "t:names.menu",
                   "settings": {
-                    "menu": "",
+                    "menu": "connect",
                     "heading": "Connect",
+                    "menu_spacing": 4,
+                    "show_as_accordion": false,
+                    "accordion_icon": "caret",
+                    "accordion_dividers": false,
+                    "inherit_color_scheme": true,
+                    "color_scheme": "",
+                    "heading_preset": "h4",
+                    "link_preset": "paragraph",
+                    "padding-block-start": 0,
+                    "padding-block-end": 0,
+                    "padding-inline-start": 0,
+                    "padding-inline-end": 0
+                  },
+                  "blocks": {}
+                },
+                "menu_KmhD9t": {
+                  "type": "menu",
+                  "name": "t:names.menu",
+                  "settings": {
+                    "menu": "hours-of-operation",
+                    "heading": "Hours of Operation",
                     "menu_spacing": 4,
                     "show_as_accordion": false,
                     "accordion_icon": "caret",
@@ -159,7 +180,8 @@
               "block_order": [
                 "menu_zGVbCp",
                 "menu_A6XnBJ",
-                "menu_xdWfdM"
+                "menu_xdWfdM",
+                "menu_KmhD9t"
               ]
             },
             "group_dMjTNU": {
@@ -222,7 +244,7 @@
                     "corner_radius": 0,
                     "padding-block-start": 12,
                     "padding-block-end": 0,
-                    "padding-inline-start": 0,
+                    "padding-inline-start": 31,
                     "padding-inline-end": 0
                   },
                   "blocks": {}
@@ -231,7 +253,7 @@
                   "type": "email-signup",
                   "name": "t:names.email_signup",
                   "settings": {
-                    "width": "fill",
+                    "width": "custom",
                     "custom_width": 100,
                     "inherit_color_scheme": true,
                     "color_scheme": "",
@@ -246,7 +268,7 @@
                     "button_type_preset": "paragraph",
                     "padding-block-start": 0,
                     "padding-block-end": 0,
-                    "padding-inline-start": 0,
+                    "padding-inline-start": 43,
                     "padding-inline-end": 0
                   },
                   "blocks": {}
