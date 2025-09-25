@@ -1,7 +1,7 @@
 /*!
 @pnp-id: age-gate
 purpose: Logic for 21+ modal
-owner: Alejandra
+owner: Puff&Pastry Custom change
 */
 (function () {
     const KEY = "pnp_age_verified_v1";
