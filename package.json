@@ -1,0 +1,9 @@
+{
+  "name": "puffandpastry-staging",
+  "version": "1.0.0",
+  "scripts": {
+    "dev:staging": "shopify theme dev --theme 134236504123",
+    "push:staging": "shopify theme push --theme 134236504123",
+    "pull:staging": "shopify theme pull --theme 134236504123"
+  }
+}
