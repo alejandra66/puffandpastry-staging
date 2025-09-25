@@ -1,10 +1,9 @@
 {%- comment -%}
-Alejandra Change: Three-up hero with per-card text
-& what was changed:
-- Added per-card "eyebrow", "title", and "copy" text fields (block settings)
-- Added per-card overlay strength override (block setting)
-- Added text alignment and placement controls per card
-- Kept full-bleed, no gaps, square corners, and mobile-only scroll hint
+Alejandra Change: Three-up hero (flush tiles, no gaps)
+- Per-card text (eyebrow/title/copy)
+- Per-card overlay override
+- Per-card text alignment + placement
+- Full-bleed, square corners, mobile horizontal snap
 {%- endcomment -%}
 
 <section
@@ -12,7 +11,7 @@ Alejandra Change: Three-up hero with per-card text
   class="three-up-hero section section--full-width color-{{ section.settings.color_scheme }}"
   aria-label="{{ section.settings.aria_label | default: 'Featured collections' }}"
   style="
-    --hero-gap: {{ section.settings.gap }}px;
+    --hero-gap: 0px;
     --hero-height: {{ section.settings.height_vh }}vh;
     --overlay-strength: {{ section.settings.overlay_strength }}%;
   "
@@ -57,11 +56,9 @@ Alejandra Change: Three-up hero with per-card text
             {%- if block.settings.eyebrow != blank -%}
               <span class="three-up-hero__eyebrow">{{ block.settings.eyebrow }}</span>
             {%- endif -%}
-
             {%- if block.settings.title != blank -%}
               <h3 class="three-up-hero__title">{{ block.settings.title }}</h3>
             {%- endif -%}
-
             {%- if block.settings.copy != blank -%}
               <div class="three-up-hero__copy">{{ block.settings.copy }}</div>
             {%- endif -%}
@@ -86,6 +83,27 @@ Alejandra Change: Three-up hero with per-card text
             stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
+
+  {%- comment -%}
+TEMP LAUNCH HOLD — Coming Soon overlay
+Delete this whole block (START→END) or disable the “Show coming soon” setting when you launch.
+{%- endcomment -%}
+  {% if section.settings.show_coming_soon %}
+    <div class="three-up-hero__coming-soon" role="dialog" aria-label="Coming soon" aria-modal="true">
+      <div class="three-up-hero__cs-backdrop" aria-hidden="true"></div>
+      <div class="three-up-hero__cs-content">
+        {%- if section.settings.cs_eyebrow != blank -%}
+          <div class="three-up-hero__cs-eyebrow">{{ section.settings.cs_eyebrow }}</div>
+        {%- endif -%}
+        <h2 class="three-up-hero__cs-title">{{ section.settings.cs_title | default: 'Coming soon' }}</h2>
+        {%- if section.settings.cs_copy != blank -%}
+          <p class="three-up-hero__cs-copy">{{ section.settings.cs_copy }}</p>
+        {%- endif -%}
+      </div>
+    </div>
+  {% endif %}
+  {%- comment -%} TEMP LAUNCH HOLD — Coming Soon overlay END {%- endcomment -%}
+
 </section>
 
 {% stylesheet %}
@@ -98,30 +116,44 @@ Alejandra Change: Three-up hero with per-card text
 
 .three-up-hero{ position:relative; overflow:hidden; }
 
-/* Desktop: 3 columns, NO GAP */
+/* Desktop: 3 columns, absolutely no gap */
 .three-up-hero__track{
   height:clamp(420px, var(--hero-height), 92vh);
   display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:0; /* Alejandra Change: no spacing between tiles */
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap:0;
+  padding:0;
+  margin:0;
 }
 
-/* Alejandra Change: make the cards ~1 inch shorter on desktop only (all three-up heroes) */
+/* Keep desktop height logic */
 @media (min-width: 990px){
   .three-up-hero .three-up-hero__track{
-    height: clamp(420px, var(--hero-height), 92vh); /* no subtraction */
+    height: clamp(420px, var(--hero-height), 92vh);
   }
 }
 
-/* Mobile: horizontal snap, NO GAP, NO side padding */
+/* Desktop: kill sub-pixel seams between tiles */
+@media (min-width: 990px){
+.three-up-hero__track{
+grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+/* slide tiles 2..n left by 0.5px so they overlap */
+.three-up-hero__tile:nth-child(n+2){ margin-left:-0.5px; }
+/* make sure the image fully covers the overlap */
+.three-up-hero__img{ width: calc(100% + 1px); }
+}
+
+
+/* Mobile: horizontal snap, no gap, no side padding */
 @media (max-width: 989px){
   .three-up-hero__track{
     display:flex;
-    gap:0;               /* Alejandra Change */
     overflow-x:auto;
     scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
-    padding:0;           /* Alejandra Change */
+    gap:0;
+    padding:0;
   }
 }
 
@@ -131,14 +163,15 @@ Alejandra Change: Three-up hero with per-card text
   display:block;
   height:100%;
   scroll-snap-align:center;
-  border-radius:0;       /* Alejandra Change */
+  border-radius:0;
   overflow:hidden;
   transform:translateZ(0);
+  margin:0; /* ensure zero gutters */
 }
 
-/* Mobile: each tile is full viewport width (no "peek") */
+/* Mobile: each tile is full viewport width */
 @media (max-width: 989px){
-  .three-up-hero__tile{ min-width:100vw; }
+  .three-up-hero__tile{ flex:0 0 100vw; }
 }
 
 .three-up-hero__img,
@@ -146,7 +179,7 @@ Alejandra Change: Three-up hero with per-card text
   width:100%;
   height:100%;
   object-fit:cover;
-  display:block;
+  display:block;       /* prevents inline-img whitespace */
   background:rgba(0,0,0,.05);
 }
 
@@ -161,7 +194,7 @@ Alejandra Change: Three-up hero with per-card text
 }
 .three-up-hero__tile:hover .three-up-hero__overlay{ opacity:.25; }
 
-/* ========== Per-card text styles ========== */
+/* Text/meta */
 .three-up-hero__meta{
   position:absolute; inset:auto 16px 16px 16px;
   display:flex; flex-direction:column; gap:6px;
@@ -194,7 +227,7 @@ Alejandra Change: Three-up hero with per-card text
   background:rgba(0,0,0,.35); padding:.35rem .6rem; border-radius:.4rem;
 }
 
-/* CTA circle arrow on each tile (kept) */
+/* CTA circle arrow */
 .three-up-hero__arrow{
   width:44px; height:44px; margin-top:8px;
   border-radius:999px;
@@ -205,9 +238,8 @@ Alejandra Change: Three-up hero with per-card text
 .three-up-hero__arrow-icon{ width:20px; height:20px; }
 .three-up-hero__tile:hover .three-up-hero__arrow{ transform:translateX(6px); }
 
-/* --- MOBILE-ONLY scroll hint (dark bg + white arrow) ------------------ */
+/* Mobile-only scroll hint */
 .three-up-hero__scroll-hint{ display:none; }
-
 @media (max-width: 989px){
   .three-up-hero__scroll-hint{
     position:absolute;
@@ -222,7 +254,6 @@ Alejandra Change: Three-up hero with per-card text
     animation: threeup-nudge 1.8s ease-in-out infinite;
   }
   .three-up-hero__scroll-hint-icon{ width:20px; height:20px; }
-
   @keyframes threeup-nudge{
     0%, 60%, 100% { transform:translateY(-50%) translateX(0);   opacity:1; }
     30%          { transform:translateY(-50%) translateX(6px); opacity:1; }
@@ -237,30 +268,65 @@ Alejandra Change: Three-up hero with per-card text
 /* Prevent horizontal scrollbar from 100vw */
 html, body { overflow-x: clip; }
 
-/* Smooth transform/blur on the image itself */
+/* Image micro-interaction */
 .three-up-hero__img {
   transition: transform .35s ease, filter .35s ease;
   will-change: transform, filter;
   transform-origin: center center;
   backface-visibility: hidden;
 }
-
-/* Hover/focus: gently scale + blur the image */
 .three-up-hero__tile:hover .three-up-hero__img,
 .three-up-hero__tile:focus-visible .three-up-hero__img {
-  transform: scale(1.04);       /* tweak: 1.02–1.06 */
-  filter: blur(2px);            /* tweak: 1–3px */
+  transform: scale(1.04);
+  filter: blur(2px);
 }
-
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
   .three-up-hero__img { transition: none; }
 }
 
+/* --- Coming Soon full-coverage overlay ---------------------------------- */
+/* TEMP LAUNCH HOLD: remove these styles when you launch */
+.three-up-hero__coming-soon{
+position:absolute; inset:0; z-index:5;
+display:grid; place-items:center;
+pointer-events:auto;               /* block clicks to tiles while active */
+}
+.three-up-hero__cs-backdrop{
+position:absolute; inset:0;
+background:rgba(0,0,0,.62);        /* dim background */
+backdrop-filter:saturate(90%) blur(1px);
+}
+.three-up-hero__cs-content{
+position:relative; z-index:1;
+text-align:center; color:#fff;
+padding:24px 20px; max-width:min(92vw, 720px);
+}
+.three-up-hero__cs-eyebrow{
+display:inline-block;
+font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; opacity:.95;
+background:rgba(255,255,255,.12); padding:.35rem .7rem; border-radius:999px; margin-bottom:.75rem;
+}
+.three-up-hero__cs-title{
+margin:.25rem 0 .5rem; font-weight:800;
+font-size:clamp(28px, 5vw, 56px); line-height:1.05;
+}
+.three-up-hero__cs-copy{
+margin:0 auto; opacity:.95;
+font-size:clamp(14px, 1.6vw, 18px); line-height:1.4; max-width:46ch;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion:no-preference){
+.three-up-hero__cs-backdrop{ transition: opacity .3s ease; }
+.three-up-hero__coming-soon{ animation: cs-fade .35s ease both; }
+@keyframes cs-fade{ from{ opacity:0 } to{ opacity:1 } }
+}
+/* END TEMP LAUNCH HOLD: remove these styles when you launch */
+
 {% endstylesheet %}
 
 <script>
-/* Alejandra Change: show mobile scroll-hint only when scrollable, hide after first swipe */
+/* Show mobile scroll-hint only when scrollable, hide after first swipe */
 document.addEventListener('DOMContentLoaded', function () {
   const root  = document.getElementById('three-up-hero-{{ section.id }}');
   if (!root) return;
@@ -290,9 +356,14 @@ document.addEventListener('DOMContentLoaded', function () {
   "settings": [
     { "type": "color_scheme", "id": "color_scheme", "label": "Color scheme", "default": "scheme-1" },
     { "type": "range", "id": "height_vh", "label": "Height (vh)", "min": 40, "max": 90, "step": 1, "default": 70 },
-    { "type": "range", "id": "gap", "label": "Gap (forced to 0 by CSS)", "min": 0, "max": 32, "step": 1, "default": 0 },
+    { "type": "range", "id": "gap", "label": "Gap (not used; tiles are flush)", "min": 0, "max": 32, "step": 1, "default": 0 },
     { "type": "range", "id": "overlay_strength", "label": "Default overlay strength", "min": 0, "max": 80, "step": 5, "default": 20 },
-    { "type": "text", "id": "aria_label", "label": "ARIA label", "default": "Featured collections" }
+    { "type": "text", "id": "aria_label", "label": "ARIA label", "default": "Featured collections" },
+
+    { "type": "checkbox", "id": "show_coming_soon", "label": "Show coming soon overlay", "default": true },
+    { "type": "text",     "id": "cs_eyebrow", "label": "Overlay eyebrow", "default": "Beyond the Pastry" },
+    { "type": "text",     "id": "cs_title",   "label": "Overlay title",   "default": "Coming soon" },
+    { "type": "textarea", "id": "cs_copy",    "label": "Overlay copy",    "default": "We’re expanding our menu to bring you more than just baked goods. Stay tuned for what’s next." }
   ],
   "blocks": [
     {
@@ -301,13 +372,10 @@ document.addEventListener('DOMContentLoaded', function () {
       "settings": [
         { "type": "image_picker", "id": "image", "label": "Image" },
         { "type": "url", "id": "link", "label": "Link" },
-
         { "type": "text", "id": "eyebrow", "label": "Eyebrow (small upper text)" },
         { "type": "text", "id": "title", "label": "Title", "default": "Shop the collection" },
         { "type": "richtext", "id": "copy", "label": "Copy", "default": "<p></p>" },
-
         { "type": "range", "id": "overlay_strength_local", "label": "Overlay strength (override)", "min": 0, "max": 80, "step": 5, "default": 20 },
-
         {
           "type": "select",
           "id": "text_position",
@@ -331,19 +399,14 @@ document.addEventListener('DOMContentLoaded', function () {
             { "value": "right", "label": "Right" }
           ]
         },
-
         { "type": "text", "id": "alt", "label": "Alt text (optional)" }
       ]
     }
   ],
   "max_blocks": 6,
   "presets": [
-    {
-      "name": "Three-up hero",
-      "blocks": [{ "type": "tile" }, { "type": "tile" }, { "type": "tile" }]
-    }
+    { "name": "Three-up hero", "blocks": [{ "type": "tile" }, { "type": "tile" }, { "type": "tile" }] }
   ]
-  
 }
 {% endschema %}
 
