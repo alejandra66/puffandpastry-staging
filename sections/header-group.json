@@ -41,20 +41,6 @@
         "padding-block-end": 15
       }
     },
-    "pp_header_simple_nkYbxz": {
-      "type": "pp-header-simple",
-      "name": "Header (Simple Dropdown)",
-      "settings": {
-        "menu": "main-menu",
-        "nav_font": "work_sans_n4",
-        "nav_font_size": 18,
-        "link_gap": 24,
-        "header_pad_y": 16,
-        "nav_color": "#FFFFFF",
-        "nav_hover_color": "#FFFFFF",
-        "solid_bg": "#0f1b24"
-      }
-    },
     "header_section": {
       "type": "header",
       "blocks": {
@@ -84,10 +70,10 @@
             "image_border_radius": 0,
             "product_title_case": "default",
             "collection_title_case": "default",
-            "color_scheme": "scheme-6",
+            "color_scheme": "scheme-1",
             "menu_font_style": "inverse_large",
             "type_font_primary_link": "subheading",
-            "type_font_primary_size": "1.25rem",
+            "type_font_primary_size": "1.5rem",
             "type_case_primary_link": "uppercase",
             "type_font_secondary_link": "subheading",
             "type_case_secondary_link": "uppercase",
@@ -139,7 +125,6 @@
   },
   "order": [
     "header_announcements_ic9bnb",
-    "pp_header_simple_nkYbxz",
     "header_section"
   ]
 }
