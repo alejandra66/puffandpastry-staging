@@ -1,0 +1,24 @@
+{
+  "name": "About",
+  "sections": {
+    "image_banner": {
+      "type": "image-banner",
+      "settings": {
+        "heading": "About Puff & Pastry",
+        "text": "",
+        "show_text_box": true
+      }
+    },
+    "rich_text": {
+      "type": "rich-text",
+      "blocks": {
+        "heading": { "type": "heading", "settings": { "heading": "Our story" } },
+        "text": { "type": "text", "settings": { "text": "<p>Baked with love, brewed with hustle.</p>" } }
+      },
+      "block_order": ["heading","text"],
+      "settings": { "narrow_column": true }
+    },
+    "main": { "type": "main-page", "settings": {} }
+  },
+  "order": ["image_banner","rich_text","main"]
+}
