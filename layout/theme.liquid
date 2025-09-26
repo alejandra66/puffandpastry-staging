@@ -58,14 +58,21 @@
       related: assets/pnp-age-gate.css, assets/pnp-age-gate.js
       notes: Shows every time on homepage; remembers on other pages.
       {%- endcomment -%}
-      {% render 'pnp-age-gate' %}
+      {% if request.page_type == 'index' %}
+        {% render 'pnp-age-gate' %}
+      {% endif %}
       {%- comment -%} PNP: custom includes end {%- endcomment -%}
     </main>
 
     {% sections 'footer-group' %}
 
+
     {% # theme-check-disable ParserBlockingScript %}
-    <script src="{{ 'critical.js' | asset_url }}"></script>
+    <script src="{{ 'critical.js' | asset_url }}">
+      window.PNP = window.PNP || {};
+  window.PNP.isHome = {{ request.page_type == 'index' | json }};
+
+      </script>
     {% # theme-check-enable ParserBlockingScript %}
 
     {% render 'search-modal' %}
