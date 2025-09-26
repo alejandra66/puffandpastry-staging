@@ -1,90 +1,70 @@
 /*!
 @pnp-id: age-gate
-purpose: Logic for 21+ modal
+purpose: Logic for 21+ modal (always on home; never elsewhere)
 owner: Puff&Pastry Custom change
 */
 (function () {
-    const KEY = "pnp_age_verified_v1";
-    const DAYS = 30;
+  // We read the flag injected by theme.liquid
+  function isHome() {
+    return !!(window.PNP && window.PNP.isHome);
+  }
 
-    function setWithExpiry(key, value, days) {
-        const now = new Date();
-        const item = { value, expiry: now.getTime() + days*24*60*60*1000 };
-        localStorage.setItem(key, JSON.stringify(item));
-    }
+  function openGate() {
+    const gate = document.getElementById("age-gate");   // HTML must use id="age-gate"
+    if (!gate) return;
 
-    function getWithExpiry(key) {
-        const raw = localStorage.getItem(key);
-        if (!raw) return null;
-        try {
-            const item = JSON.parse(raw);
-            if (new Date().getTime() > item.expiry) {
-                localStorage.removeItem(key);
-                return null;
-            }
-            return item.value;
-        } catch { return null; }
-    }
+    gate.classList.remove("hidden");
+    document.documentElement.classList.add("age-gate-open");
+    document.body.classList.add("age-gate-open");
 
-    function openGate() {
-        const gate = document.getElementById("age-gate");
-        if (!gate) return;
+    // Buttons (HTML must use these IDs)
+    const yesBtn = document.getElementById("age-yes");
+    const noBtn  = document.getElementById("age-no");
 
-        gate.classList.remove("hidden");
-        document.documentElement.classList.add("age-gate-open");
-        document.body.classList.add("age-gate-open");
+    // Focus trap (simple)
+    const modal = gate.querySelector(".age-gate__modal");
+    const focusables = [yesBtn, noBtn].filter(Boolean);
+    let focusIndex = 0;
+    modal && modal.focus();
 
-        // Focus control (simple trap)
-        const modal = gate.querySelector(".age-gate__modal");
-        const yesBtn = document.getElementById("age-yes");
-        const noBtn = document.getElementById("age-no");
-        const focusables = [yesBtn, noBtn];
-        let focusIndex = 0;
-
-        // Initial focus
-        modal && modal.focus();
-
-        gate.addEventListener("keydown", (e) => {
-            if (e.key === "Tab") {
-                e.preventDefault();
-                focusIndex = (focusIndex + (e.shiftKey ? -1 : 1) + focusables.length) % focusables.length;
-                focusables[focusIndex].focus();
-            } else if (e.key === "Escape") {
-                // Do nothing—must choose
-                e.preventDefault();
-            }
-        });
-
-        yesBtn?.addEventListener("click", () => {
-            setWithExpiry(KEY, "yes", DAYS);
-            closeGate();
-        });
-
-        noBtn?.addEventListener("click", () => {
-            // Redirect minors to an info page or Google (your call)
-            window.location.replace("https://www.google.com/");
-        });
-
-        // Block clicking backdrop from closing
-        gate.querySelector(".age-gate__backdrop")?.addEventListener("click", (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-        });
-    }
-
-    function closeGate() {
-        const gate = document.getElementById("age-gate");
-        if (!gate) return;
-        gate.classList.add("hidden");
-        document.documentElement.classList.remove("age-gate-open");
-        document.body.classList.remove("age-gate-open");
-    }
-
-    function shouldShow() {
-        return getWithExpiry(KEY) !== "yes";
-    }
-
-    document.addEventListener("DOMContentLoaded", () => {
-        if (shouldShow()) openGate();
+    gate.addEventListener("keydown", (e) => {
+      if (e.key === "Tab" && focusables.length) {
+        e.preventDefault();
+        focusIndex = (focusIndex + (e.shiftKey ? -1 : 1) + focusables.length) % focusables.length;
+        focusables[focusIndex].focus();
+      } else if (e.key === "Escape") {
+        // Do nothing—user must choose
+        e.preventDefault();
+      }
     });
+
+    yesBtn && yesBtn.addEventListener("click", () => {
+      closeGate(); // no localStorage – always shows next time on home
+    }, { once: true });
+
+    noBtn && noBtn.addEventListener("click", () => {
+      window.location.replace("https://www.google.com/"); // your chosen redirect
+    }, { once: true });
+
+    // Disable closing via backdrop click
+    gate.querySelector(".age-gate__backdrop")?.addEventListener("click", (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+    });
+  }
+
+  function closeGate() {
+    const gate = document.getElementById("age-gate");
+    if (!gate) return;
+    gate.classList.add("hidden");
+    document.documentElement.classList.remove("age-gate-open");
+    document.body.classList.remove("age-gate-open");
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    if (isHome()) {
+      openGate();      // always show on homepage
+    }
+    // Do nothing on other pages
+  });
 })();

@@ -160,7 +160,7 @@
                   "name": "t:names.menu",
                   "settings": {
                     "menu": "hours-of-operation",
-                    "heading": "Hours of Operation",
+                    "heading": "Hours",
                     "menu_spacing": 4,
                     "show_as_accordion": false,
                     "accordion_icon": "caret",

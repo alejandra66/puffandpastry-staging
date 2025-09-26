@@ -682,7 +682,11 @@
         "height_vh": 70,
         "gap": 16,
         "overlay_strength": 20,
-        "aria_label": "Featured collections"
+        "aria_label": "Featured collections",
+        "show_coming_soon": true,
+        "cs_eyebrow": "Beyond the Pastry",
+        "cs_title": "Coming soon",
+        "cs_copy": "We’re expanding our menu to bring you more than just baked goods. Stay tuned for what’s next."
       }
     },
     "section_header_rrawEY": {
@@ -697,9 +701,12 @@
         "align": "center",
         "pad_top": 100,
         "pad_bottom": 32,
-        "bg_style": "bg--inherit",
+        "bg_style": "bg--dark",
+        "enable_shadow": false,
+        "shadow_end_color": "#1b263b",
+        "shadow_height_px": 96,
         "anchor_id": "flavor-header",
-        "show_divider": false
+        "show_divider": true
       }
     },
     "section_twip48": {
