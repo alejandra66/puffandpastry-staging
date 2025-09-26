@@ -1,5 +1,5 @@
 {%- comment -%}
-Alejandra Change: Three-up hero (flush tiles, no gaps)
+Puff&Pastry custom Change: Three-up hero (flush tiles, no gaps)
 - Per-card text (eyebrow/title/copy)
 - Per-card overlay override
 - Per-card text alignment + placement
@@ -7,14 +7,14 @@ Alejandra Change: Three-up hero (flush tiles, no gaps)
 {%- endcomment -%}
 
 <section
-  id="three-up-hero-{{ section.id }}"
-  class="three-up-hero section section--full-width color-{{ section.settings.color_scheme }}"
-  aria-label="{{ section.settings.aria_label | default: 'Featured collections' }}"
-  style="
-    --hero-gap: 0px;
-    --hero-height: {{ section.settings.height_vh }}vh;
-    --overlay-strength: {{ section.settings.overlay_strength }}%;
-  "
+        id="three-up-hero-{{ section.id }}"
+        class="three-up-hero section section--full-width color-{{ section.settings.color_scheme }}"
+        aria-label="{{ section.settings.aria_label | default: 'Featured collections' }}"
+        style="
+                --hero-gap: 0px;
+                --hero-height: {{ section.settings.height_vh }}vh;
+                --overlay-strength: {{ section.settings.overlay_strength }}%;
+                "
 >
   <div class="three-up-hero__track" role="list">
     {%- for block in section.blocks -%}
@@ -23,13 +23,12 @@ Alejandra Change: Three-up hero (flush tiles, no gaps)
         {%- assign alt = block.settings.alt | default: block.settings.title | default: block.settings.eyebrow | default: img.alt -%}
         {%- assign href = block.settings.link | default: '#' -%}
         {%- assign strength_local = block.settings.overlay_strength_local | default: section.settings.overlay_strength -%}
-
         <a
-          class="three-up-hero__tile three-up-hero__tile--pos-{{ block.settings.text_position | default: 'bottom-left' }} three-up-hero__tile--align-{{ block.settings.text_align | default: 'left' }}"
-          role="listitem"
-          href="{{ href }}"
-          style="--overlay-strength-local: {{ strength_local }}%;"
-          {{ block.shopify_attributes }}
+                class="three-up-hero__tile three-up-hero__tile--pos-{{ block.settings.text_position | default: 'bottom-left' }} three-up-hero__tile--align-{{ block.settings.text_align | default: 'left' }}"
+                role="listitem"
+                href="{{ href }}"
+                style="--overlay-strength-local: {{ strength_local }}%;"
+                {{ block.shopify_attributes }}
         >
           {%- if img -%}
             {%- liquid
@@ -37,21 +36,19 @@ Alejandra Change: Three-up hero (flush tiles, no gaps)
               assign sizes  = '(min-width: 990px) 33vw, 100vw'
             -%}
             {{
-              img
-              | image_url: width: 2000
-              | image_tag:
-                  widths: widths,
-                  sizes: sizes,
-                  alt: alt,
-                  class: 'three-up-hero__img',
-                  loading: 'lazy'
+            img
+            | image_url: width: 2000
+            | image_tag:
+            widths: widths,
+            sizes: sizes,
+            alt: alt,
+            class: 'three-up-hero__img',
+            loading: 'lazy'
             }}
           {%- else -%}
             <div class="three-up-hero__placeholder" aria-hidden="true"></div>
           {%- endif -%}
-
           <div class="three-up-hero__overlay"></div>
-
           <div class="three-up-hero__meta">
             {%- if block.settings.eyebrow != blank -%}
               <span class="three-up-hero__eyebrow">{{ block.settings.eyebrow }}</span>
@@ -62,7 +59,6 @@ Alejandra Change: Three-up hero (flush tiles, no gaps)
             {%- if block.settings.copy != blank -%}
               <div class="three-up-hero__copy">{{ block.settings.copy }}</div>
             {%- endif -%}
-
             <span class="three-up-hero__arrow" aria-hidden="true">
               <svg viewBox="0 0 24 24" class="three-up-hero__arrow-icon">
                 <path d="M7 12h10m-4-4l4 4-4 4"
@@ -75,7 +71,6 @@ Alejandra Change: Three-up hero (flush tiles, no gaps)
       {%- endif -%}
     {%- endfor -%}
   </div>
-
   <div class="three-up-hero__scroll-hint" aria-hidden="true">
     <svg viewBox="0 0 24 24" class="three-up-hero__scroll-hint-icon">
       <path d="M7 12h10m-4-4l4 4-4 4"
@@ -109,28 +104,28 @@ Delete this whole block (START→END) or disable the “Show coming soon” sett
 {% stylesheet %}
 /* Full-bleed container (no page gutters) */
 .three-up-hero.section--full-width{
-  width:100vw;
-  margin-left:calc(50% - 50vw);
-  margin-right:calc(50% - 50vw);
+width:100vw;
+margin-left:calc(50% - 50vw);
+margin-right:calc(50% - 50vw);
 }
 
 .three-up-hero{ position:relative; overflow:hidden; }
 
 /* Desktop: 3 columns, absolutely no gap */
 .three-up-hero__track{
-  height:clamp(420px, var(--hero-height), 92vh);
-  display:grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap:0;
-  padding:0;
-  margin:0;
+height:clamp(420px, var(--hero-height), 92vh);
+display:grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap:0;
+padding:0;
+margin:0;
 }
 
 /* Keep desktop height logic */
 @media (min-width: 990px){
-  .three-up-hero .three-up-hero__track{
-    height: clamp(420px, var(--hero-height), 92vh);
-  }
+.three-up-hero .three-up-hero__track{
+height: clamp(420px, var(--hero-height), 92vh);
+}
 }
 
 /* Desktop: kill sub-pixel seams between tiles */
@@ -144,96 +139,92 @@ grid-template-columns: repeat(3, minmax(0, 1fr));
 .three-up-hero__img{ width: calc(100% + 1px); }
 }
 
-
 /* Mobile: horizontal snap, no gap, no side padding */
 @media (max-width: 989px){
-  .three-up-hero__track{
-    display:flex;
-    overflow-x:auto;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    gap:0;
-    padding:0;
-  }
+.three-up-hero__track{
+display:flex;
+overflow-x:auto;
+scroll-snap-type:x mandatory;
+-webkit-overflow-scrolling:touch;
+gap:0;
+padding:0;
+}
 }
 
 /* Tiles (square corners) */
 .three-up-hero__tile{
-  position:relative;
-  display:block;
-  height:100%;
-  scroll-snap-align:center;
-  border-radius:0;
-  overflow:hidden;
-  transform:translateZ(0);
-  margin:0; /* ensure zero gutters */
+position:relative;
+display:block;
+height:100%;
+scroll-snap-align:center;
+border-radius:0;
+overflow:hidden;
+transform:translateZ(0);
+margin:0; /* ensure zero gutters */
 }
 
 /* Mobile: each tile is full viewport width */
 @media (max-width: 989px){
-  .three-up-hero__tile{ flex:0 0 100vw; }
+.three-up-hero__tile{ flex:0 0 100vw; }
 }
 
 .three-up-hero__img,
 .three-up-hero__placeholder{
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  display:block;       /* prevents inline-img whitespace */
-  background:rgba(0,0,0,.05);
+width:100%;
+height:100%;
+object-fit:cover;
+display:block;       /* prevents inline-img whitespace */
+background:rgba(0,0,0,.05);
 }
 
 /* Overlay (uses per-card or section strength) */
 .three-up-hero__overlay{
-  pointer-events:none;
-  position:absolute; inset:0;
-  background:linear-gradient(0deg, rgba(0,0,0,calc(var(--overlay-strength-local, var(--overlay-strength))/100)) 0%, rgba(0,0,0,0) 60%);
-  transition:opacity .35s ease;
-  opacity:.5;
-  border-radius:0;
+pointer-events:none;
+position:absolute; inset:0;
+background:linear-gradient(0deg, rgba(0,0,0,calc(var(--overlay-strength-local, var(--overlay-strength))/100)) 0%, rgba(0,0,0,0) 60%);
+transition:opacity .35s ease;
+opacity:.5;
+border-radius:0;
 }
 .three-up-hero__tile:hover .three-up-hero__overlay{ opacity:.25; }
 
 /* Text/meta */
 .three-up-hero__meta{
-  position:absolute; inset:auto 16px 16px 16px;
-  display:flex; flex-direction:column; gap:6px;
-  color:#fff; text-align:left;
-  max-width:min(90%, 40ch);
+position:absolute; inset:auto 16px 16px 16px;
+display:flex; flex-direction:column; gap:6px;
+color:#fff; text-align:left;
+max-width:min(90%, 40ch);
 }
-
 /* Placement modifiers */
 .three-up-hero__tile--pos-bottom-left  .three-up-hero__meta{ left:16px;  right:auto; bottom:16px; top:auto; }
 .three-up-hero__tile--pos-bottom-center.three-up-hero__tile .three-up-hero__meta{ left:50%; transform:translateX(-50%); bottom:16px; top:auto; text-align:center; align-items:center; }
 .three-up-hero__tile--pos-bottom-right .three-up-hero__meta{ right:16px; left:auto; bottom:16px; top:auto; text-align:right; align-items:flex-end; }
 .three-up-hero__tile--pos-center       .three-up-hero__meta{ left:50%; top:50%; transform:translate(-50%,-50%); text-align:center; align-items:center; }
-
 /* Text alignment modifiers */
 .three-up-hero__tile--align-left  .three-up-hero__meta{ text-align:left;  align-items:flex-start; }
 .three-up-hero__tile--align-center.three-up-hero__tile .three-up-hero__meta{ text-align:center; align-items:center; }
 .three-up-hero__tile--align-right .three-up-hero__meta{ text-align:right; align-items:flex-end; }
-
 /* Eyebrow, Title, Copy */
 .three-up-hero__eyebrow{
-  font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; opacity:.9;
-  background:rgba(0,0,0,.35); padding:.2rem .5rem; border-radius:999px;
+font-size:.8rem; letter-spacing:.12em; text-transform:uppercase; opacity:.9;
+background:rgba(0,0,0,.35); padding:.2rem .5rem; border-radius:999px;
 }
 .three-up-hero__title{
-  margin:0; font-size:clamp(1.25rem, 2.4vw, 2rem); line-height:1.1; font-weight:700;
-  text-wrap:balance;
+margin:0; font-size:clamp(1.25rem, 2.4vw, 2rem); line-height:1.1; font-weight:700;
+text-wrap:balance;
 }
 .three-up-hero__copy{
-  font-size:clamp(.9rem, 1.4vw, 1rem); line-height:1.35;
-  background:rgba(0,0,0,.35); padding:.35rem .6rem; border-radius:.4rem;
+font-size:clamp(.9rem, 1.4vw, 1rem); line-height:1.35;
+background:rgba(0,0,0,.35); padding:.35rem .6rem; border-radius:.4rem;
 }
 
 /* CTA circle arrow */
 .three-up-hero__arrow{
-  width:44px; height:44px; margin-top:8px;
-  border-radius:999px;
-  background:#fff; color:#000;
-  display:grid; place-items:center;
-  transition:transform .35s ease, background .35s ease, color .35s ease;
+width:44px; height:44px; margin-top:8px;
+border-radius:999px;
+background:#fff; color:#000;
+display:grid; place-items:center;
+transition:transform .35s ease, background .35s ease, color .35s ease;
 }
 .three-up-hero__arrow-icon{ width:20px; height:20px; }
 .three-up-hero__tile:hover .three-up-hero__arrow{ transform:translateX(6px); }
@@ -241,48 +232,85 @@ grid-template-columns: repeat(3, minmax(0, 1fr));
 /* Mobile-only scroll hint */
 .three-up-hero__scroll-hint{ display:none; }
 @media (max-width: 989px){
-  .three-up-hero__scroll-hint{
-    position:absolute;
-    right:10px; top:50%; transform:translateY(-50%);
-    width:44px; height:44px; border-radius:999px;
-    background: rgba(0,0,0,.55);
-    color: #fff;
-    border: 1px solid rgba(255,255,255,.22);
-    display:grid; place-items:center;
-    pointer-events:none;
-    z-index:3;
-    animation: threeup-nudge 1.8s ease-in-out infinite;
-  }
-  .three-up-hero__scroll-hint-icon{ width:20px; height:20px; }
-  @keyframes threeup-nudge{
-    0%, 60%, 100% { transform:translateY(-50%) translateX(0);   opacity:1; }
-    30%          { transform:translateY(-50%) translateX(6px); opacity:1; }
-  }
+.three-up-hero__scroll-hint{
+position:absolute;
+right:10px; top:50%; transform:translateY(-50%);
+width:44px; height:44px; border-radius:999px;
+background: rgba(0,0,0,.55);
+color: #fff;
+border: 1px solid rgba(255,255,255,.22);
+display:grid; place-items:center;
+pointer-events:none;
+z-index:3;
+animation: threeup-nudge 1.8s ease-in-out infinite;
 }
-
+.three-up-hero__scroll-hint-icon{ width:20px; height:20px; }
+@keyframes threeup-nudge{
+0%, 60%, 100% { transform:translateY(-50%) translateX(0);   opacity:1; }
+30%          { transform:translateY(-50%) translateX(6px); opacity:1; }
+}
+}
 /* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .three-up-hero__scroll-hint{ animation:none; }
+.three-up-hero__scroll-hint{ animation:none; }
 }
-
 /* Prevent horizontal scrollbar from 100vw */
 html, body { overflow-x: clip; }
 
 /* Image micro-interaction */
 .three-up-hero__img {
-  transition: transform .35s ease, filter .35s ease;
-  will-change: transform, filter;
-  transform-origin: center center;
-  backface-visibility: hidden;
+transition: transform .35s ease, filter .35s ease;
+will-change: transform, filter;
+transform-origin: center center;
+backface-visibility: hidden;
 }
 .three-up-hero__tile:hover .three-up-hero__img,
 .three-up-hero__tile:focus-visible .three-up-hero__img {
-  transform: scale(1.04);
-  filter: blur(2px);
+transform: scale(1.04);
+filter: blur(2px);
 }
 @media (prefers-reduced-motion: reduce){
-  .three-up-hero__img { transition: none; }
+.three-up-hero__img { transition: none; }
 }
+
+/* --- Coming Soon full-coverage overlay ---------------------------------- */
+/* TEMP LAUNCH HOLD: remove these styles when you launch */
+.three-up-hero__coming-soon{
+position:absolute; inset:0; z-index:5;
+display:grid; place-items:center;
+pointer-events:auto;               /* block clicks to tiles while active */
+}
+.three-up-hero__cs-backdrop{
+position:absolute; inset:0;
+background:rgba(0,0,0,.62);        /* dim background */
+backdrop-filter:saturate(90%) blur(1px);
+}
+.three-up-hero__cs-content{
+position:relative; z-index:1;
+text-align:center; color:#fff;
+padding:24px 20px; max-width:min(92vw, 720px);
+}
+.three-up-hero__cs-eyebrow{
+display:inline-block;
+font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; opacity:.95;
+background:rgba(255,255,255,.12); padding:.35rem .7rem; border-radius:999px; margin-bottom:.75rem;
+}
+.three-up-hero__cs-title{
+margin:.25rem 0 .5rem; font-weight:800;
+font-size:clamp(28px, 5vw, 56px); line-height:1.05;
+}
+.three-up-hero__cs-copy{
+margin:0 auto; opacity:.95;
+font-size:clamp(14px, 1.6vw, 18px); line-height:1.4; max-width:46ch;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion:no-preference){
+.three-up-hero__cs-backdrop{ transition: opacity .3s ease; }
+.three-up-hero__coming-soon{ animation: cs-fade .35s ease both; }
+@keyframes cs-fade{ from{ opacity:0 } to{ opacity:1 } }
+}
+/* END TEMP LAUNCH HOLD: remove these styles when you launch */
 
 /* --- Coming Soon full-coverage overlay ---------------------------------- */
 /* TEMP LAUNCH HOLD: remove these styles when you launch */
@@ -326,30 +354,27 @@ font-size:clamp(14px, 1.6vw, 18px); line-height:1.4; max-width:46ch;
 {% endstylesheet %}
 
 <script>
-/* Show mobile scroll-hint only when scrollable, hide after first swipe */
-document.addEventListener('DOMContentLoaded', function () {
-  const root  = document.getElementById('three-up-hero-{{ section.id }}');
-  if (!root) return;
-  const track = root.querySelector('.three-up-hero__track');
-  const hint  = root.querySelector('.three-up-hero__scroll-hint');
-  const mq    = window.matchMedia('(max-width: 989px)');
-
-  function updateVisibility() {
-    if (!mq.matches || !track || !hint) { if (hint) hint.style.display = 'none'; return; }
-    const canScroll = track.scrollWidth > track.clientWidth + 4;
-    hint.style.display = canScroll && track.scrollLeft < 10 ? '' : 'none';
-  }
-
-  if (track && hint) {
-    updateVisibility();
-    track.addEventListener('scroll', function () {
-      if (track.scrollLeft > 10) hint.style.display = 'none';
-    }, { passive: true });
-    window.addEventListener('resize', updateVisibility);
-  }
-});
+  /* Show mobile scroll-hint only when scrollable, hide after first swipe */
+  document.addEventListener('DOMContentLoaded', function () {
+    const root  = document.getElementById('three-up-hero-{{ section.id }}');
+    if (!root) return;
+    const track = root.querySelector('.three-up-hero__track');
+    const hint  = root.querySelector('.three-up-hero__scroll-hint');
+    const mq    = window.matchMedia('(max-width: 989px)');
+    function updateVisibility() {
+      if (!mq.matches || !track || !hint) { if (hint) hint.style.display = 'none'; return; }
+      const canScroll = track.scrollWidth > track.clientWidth + 4;
+      hint.style.display = canScroll && track.scrollLeft < 10 ? '' : 'none';
+    }
+    if (track && hint) {
+      updateVisibility();
+      track.addEventListener('scroll', function () {
+        if (track.scrollLeft > 10) hint.style.display = 'none';
+      }, { passive: true });
+      window.addEventListener('resize', updateVisibility);
+    }
+  });
 </script>
-
 {% schema %}
 {
   "name": "Three-up hero",
@@ -409,4 +434,3 @@ document.addEventListener('DOMContentLoaded', function () {
   ]
 }
 {% endschema %}
-
