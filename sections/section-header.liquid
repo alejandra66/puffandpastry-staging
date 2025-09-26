@@ -4,7 +4,6 @@ Section: Section Header (SEO-tuned)
 - Optional subtitle can render as <p> or <h3>
 - Anchor id + aria-labelledby for better semantics
 - Spacing, alignment, background variants, optional divider
-- Extra: optional soft shadow blend under Dark section
 {% endcomment %}
 
 {% liquid
@@ -21,124 +20,103 @@ Section: Section Header (SEO-tuned)
   assign bg_style      = section.settings.bg_style
   assign use_h3_sub    = section.settings.subtitle_as_h3
   assign section_id    = section.settings.anchor_id | default: section.id
-
-  assign enable_shadow = section.settings.enable_shadow
-  assign shadow_end    = section.settings.shadow_end_color | default: '#f8f6f1'
-  assign shadow_h      = section.settings.shadow_height_px  | default: 96
 %}
 
 {%- assign has_title = section.settings.title | strip | size -%}
 {%- assign has_sub   = section.settings.subtitle | strip | size -%}
 
 <section
-        id="{{ section_id | escape }}"
-        class="section-header {{ bg_style | escape }}{% if enable_shadow and bg_style == 'bg--dark' %} has-shadow{% endif %}"
-        role="region"
-        {% if has_title > 0 %}
-          aria-labelledby="{{ section_id | escape }}-title"
-        {% else %}
-          aria-label="Section header"
-        {% endif %}
-        style="--sh-pad-top: {{ pad_top }}px; --sh-pad-bottom: {{ pad_bottom }}px;{% if bg_style == 'bg--dark' %} background-color:#0e1a2b; color:#fff;{% endif %}{% if enable_shadow and bg_style == 'bg--dark' %} --sh-shadow-end: {{ shadow_end }}; --sh-shadow-height: {{ shadow_h }}px;{% endif %}"
+  id="{{ section_id | escape }}"
+  class="section-header {{ bg_style | escape }}"
+  role="region"
+  {% if has_title > 0 %}
+    aria-labelledby="{{ section_id | escape }}-title"
+  {% else %}
+    aria-label="Section header"
+  {% endif %}
+  style="--sh-pad-top: {{ pad_top }}px; --sh-pad-bottom: {{ pad_bottom }}px;"
 >
   <div class="section-header__inner page-width">
     <div class="section-header__wrap section-header__wrap--{{ align }}">
       {% if has_title > 0 %}
-      <{{ tag }} id="{{ section_id | escape }}-title" class="section-header__title{% if upper %} is-upper{% endif %}">
-      {{ section.settings.title | escape }}
-    </{{ tag }}>
-    {% endif %}
-
-    {% if has_sub > 0 %}
-      {% if use_h3_sub %}
-        <h3 class="section-header__subtitle">{{ section.settings.subtitle }}</h3>
-      {% else %}
-        <p class="section-header__subtitle">{{ section.settings.subtitle }}</p>
+        <{{ tag }} id="{{ section_id | escape }}-title" class="section-header__title{% if upper %} is-upper{% endif %}">
+          {{ section.settings.title | escape }}
+        </{{ tag }}>
       {% endif %}
-    {% endif %}
 
-    {% if show_divider %}
-      <span class="section-header__divider" aria-hidden="true"></span>
-    {% endif %}
-  </div>
+      {% if has_sub > 0 %}
+        {% if use_h3_sub %}
+          <h3 class="section-header__subtitle">{{ section.settings.subtitle }}</h3>
+        {% else %}
+          <p class="section-header__subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      {% endif %}
+
+      {% if show_divider %}
+        <span class="section-header__divider" aria-hidden="true"></span>
+      {% endif %}
+    </div>
   </div>
 </section>
 
 <style>
-  /* Wrapper & spacing */
-  .section-header {
-    position: relative; /* for shadow overlay */
-    padding-top: var(--sh-pad-top, 48px);
-    padding-bottom: var(--sh-pad-bottom, 32px);
-    overflow: visible;
-  }
+/* Wrapper & spacing */
+.section-header { padding-top: var(--sh-pad-top, 48px); padding-bottom: var(--sh-pad-bottom, 32px); }
 
-  /* Background styles (original options kept) */
-  .section-header.bg--inherit { background: transparent; }
-  .section-header.bg--light   { background: #f8f6f1; }
-  .section-header.bg--dark    { background: #0e1a2b; color: #fff; }
-  .section-header.bg--none    { background: transparent; }
+/* Background styles (tweak colors to match your theme) */
+.section-header.bg--inherit { background: transparent; }
+.section-header.bg--light   { background: #f8f6f1; }
+.section-header.bg--dark    { background: #0f1b24; color: #fff; }
+.section-header.bg--none    { background: transparent; }
 
-  /* Soft shadow blend (only when has-shadow is present) */
-  .section-header.bg--dark.has-shadow::after {
-    content: "";
-    position: absolute;
-    left: 0; right: 0; bottom: -1px;
-    height: var(--sh-shadow-height, 96px);
-    pointer-events: none;
-    background: linear-gradient(
-            to bottom,
-            rgba(14, 26, 43, 0) 0%,
-            rgba(14, 26, 43, 0.45) 40%,
-            var(--sh-shadow-end, #f8f6f1) 100%
-    );
-  }
+/* Layout */
+.section-header__inner { width: 100%; }
+.section-header__wrap  { max-width: 900px; margin-inline: auto; }
+.section-header__wrap--left   { text-align: left; }
+.section-header__wrap--center { text-align: center; }
+.section-header__wrap--right  { text-align: right; }
 
-  /* Layout */
-  .section-header__inner { width: 100%; }
-  .section-header__wrap  { max-width: 900px; margin-inline: auto; }
-  .section-header__wrap--left   { text-align: left; }
-  .section-header__wrap--center { text-align: center; }
-  .section-header__wrap--right  { text-align: right; }
+/* Typography */
+.section-header__title {
+  margin: 0 0 .75rem;
+  font-weight: 800;
+  letter-spacing: .02em;
+  line-height: 1.15;
+}
+.section-header__title.is-upper { text-transform: uppercase; }
 
-  /* Typography */
-  .section-header__title {
-    margin: 0 0 .75rem;
-    font-weight: 800;
-    letter-spacing: .02em;
-    line-height: 1.15;
-  }
-  .section-header__title.is-upper { text-transform: uppercase; }
+.section-header__subtitle {
+  margin: 0;
+  max-width: 720px;
+  line-height: 1.6;
+  opacity: .85;
+}
+.section-header__wrap--center .section-header__subtitle { margin-left: auto; margin-right: auto; }
+.section-header__wrap--right  .section-header__subtitle { margin-left: auto; }
 
-  .section-header__subtitle {
-    margin: 0;
-    max-width: 720px;
-    line-height: 1.6;
-    opacity: .85;
-  }
-  .section-header__wrap--center .section-header__subtitle { margin-left: auto; margin-right: auto; }
-  .section-header__wrap--right  .section-header__subtitle { margin-left: auto; }
+/* Divider */
+.section-header__divider {
+  display: inline-block;
+  margin-top: 16px;
+  width: 72px;
+  height: 3px;
+  background: currentColor;
+  opacity: .25;
+  border-radius: 2px;
+}
 
-  /* Divider */
-  .section-header__divider {
-    display: inline-block;
-    margin-top: 16px;
-    width: 72px;
-    height: 3px;
-    background: currentColor;
-    opacity: .25;
-    border-radius: 2px;
-  }
+/* Responsive */
+@media (min-width: 768px) {
+  .section-header__title    { font-size: clamp(2.1rem, 3vw, 3.2rem); } 
+  .section-header__subtitle { font-size: 0.9rem; }
+}
+@media (max-width: 767.98px) {
+  .section-header__title    { font-size: 1.85rem; } 
+  .section-header__subtitle { font-size: 0.875rem; } 
+}
 
-  /* Responsive */
-  @media (min-width: 768px) {
-    .section-header__title    { font-size: clamp(2.1rem, 3vw, 3.2rem); }
-    .section-header__subtitle { font-size: 0.9rem; }
-  }
-  @media (max-width: 767.98px) {
-    .section-header__title    { font-size: 1.85rem; }
-    .section-header__subtitle { font-size: 0.875rem; }
-  }
+
+
 </style>
 
 {% schema %}
@@ -177,10 +155,6 @@ Section: Section Header (SEO-tuned)
         { "value": "bg--none", "label": "None" }
       ]
     },
-
-    { "type": "checkbox", "id": "enable_shadow", "label": "Enable soft shadow blend below (only for Dark section)", "default": false },
-    { "type": "color", "id": "shadow_end_color", "label": "Shadow end color (below)", "default": "#f8f6f1" },
-    { "type": "range", "id": "shadow_height_px", "label": "Shadow height", "min": 32, "max": 200, "step": 4, "unit": "px", "default": 96 },
 
     { "type": "text", "id": "anchor_id", "label": "Anchor ID (for links like #flavor)", "default": "flavor-header" },
 
