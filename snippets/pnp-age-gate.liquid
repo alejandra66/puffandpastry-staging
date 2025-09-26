@@ -1,0 +1,114 @@
+<div
+        id="pnp-age-gate"
+        class="pnp-age-gate hidden"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="pnp-age-gate-title"
+        aria-describedby="pnp-age-gate-desc"
+>
+    <div class="pnp-age-gate__backdrop"></div>
+
+    <div class="pnp-age-gate__modal" role="document" tabindex="-1">
+        <h2 id="pnp-age-gate-title" class="pnp-age-gate__title">ARE YOU 21 OR OLDER?</h2>
+        <p id="pnp-age-gate-desc" class="pnp-age-gate__desc">
+            You must be 21+ to enter Puff &amp; Pastry.
+        </p>
+
+        <div class="pnp-age-gate__actions">
+            <button id="pnp-age-yes" class="pnp-age-gate__btn pnp-age-gate__btn--yes" type="button">
+                Yes, I’m 21+
+            </button>
+            <button id="pnp-age-no" class="pnp-age-gate__btn pnp-age-gate__btn--no" type="button">
+                No
+            </button>
+        </div>
+
+        <p class="pnp-age-gate__note">
+            By entering, you confirm you’re at least 21 years old.
+        </p>
+    </div>
+</div>
+
+<style>
+    /* Layout & overlay */
+    .pnp-age-gate.hidden { display: none; }
+    .pnp-age-gate { position: fixed; inset: 0; z-index: 9999; display: grid; place-items: center; }
+    .pnp-age-gate__backdrop { position: absolute; inset: 0; background: rgba(20,33,61,.58); backdrop-filter: blur(20px); }
+
+    /* Card */
+    .pnp-age-gate__modal {
+        position: relative; width: min(92vw, 520px);
+        background: #faf9f6; border-radius: 16px; padding: 28px;
+        box-shadow: 0 18px 56px rgba(0,0,0,.28); outline: none; text-align: center; font-family: inherit;
+        transform: translateY(6px); animation: pnp-agegate-pop 160ms ease-out forwards;
+    }
+    @keyframes pnp-agegate-pop { from {opacity: 0; transform: translateY(12px) scale(.98);} to {opacity:1; transform: translateY(0) scale(1);} }
+
+    .pnp-age-gate__title { margin: 0 0 12px; font-size: 1.75rem; font-weight: 800; color: #14213d; letter-spacing: .02em; }
+    .pnp-age-gate__desc { margin: 0 0 18px; color: #333; font-size: 1rem; }
+
+    .pnp-age-gate__actions { display: flex; gap: 16px; margin-top: 20px; }
+    .pnp-age-gate__btn { flex: 1; padding: 14px 20px; border-radius: 12px; border: none; font-weight: 700; cursor: pointer; transition: transform .15s, box-shadow .15s; }
+    .pnp-age-gate__btn:hover { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0,0,0,.12); }
+    .pnp-age-gate__btn--yes { background: #a32325; color: #fff; }
+    .pnp-age-gate__btn--no  { background: #fff; border: 2px solid #a32325; color: #14213d; }
+
+    .pnp-age-gate__note { margin-top: 16px; font-size: .85rem; color: #555; }
+
+    /* Lock scroll while open */
+    html.pnp-age-gate-open, body.pnp-age-gate-open { overflow: hidden !important; }
+</style>
+
+<script>
+    /*!
+    @pnp-id: age-gate
+    purpose: Homepage 21+ modal with overlay (shows every time on home)
+    owner: Puff&Pastry Custom change
+    */
+    (function () {
+        const IS_HOME = {{ request.page_type == 'index' | json }};
+        const KEY = "pnp_age_verified_v1"; // used on non-home pages if you keep memory later
+        const DAYS = 30;
+
+        function setWithExpiry(key, value, days) {
+            const now = Date.now();
+            localStorage.setItem(key, JSON.stringify({ value, expiry: now + days*24*60*60*1000 }));
+        }
+        function getWithExpiry(key) {
+            const raw = localStorage.getItem(key);
+            if (!raw) return null;
+            try { const item = JSON.parse(raw); if (Date.now() > item.expiry) { localStorage.removeItem(key); return null; } return item.value; } catch { return null; }
+        }
+
+        function openGate() {
+            const gate = document.getElementById("pnp-age-gate");
+            if (!gate) return;
+            gate.classList.remove("hidden");
+            document.documentElement.classList.add("pnp-age-gate-open");
+            document.body.classList.add("pnp-age-gate-open");
+
+            const yesBtn = document.getElementById("pnp-age-yes");
+            const noBtn  = document.getElementById("pnp-age-no");
+
+            yesBtn && yesBtn.addEventListener("click", () => { setWithExpiry(KEY, "yes", DAYS); closeGate(); }, { once: true });
+            noBtn  && noBtn.addEventListener("click", () => { window.location.replace("https://www.google.com/"); }, { once: true });
+
+            gate.querySelector(".pnp-age-gate__backdrop")?.addEventListener("click", e => { e.preventDefault(); e.stopPropagation(); });
+            gate.querySelector(".pnp-age-gate__modal")?.focus();
+        }
+
+        function closeGate() {
+            const gate = document.getElementById("pnp-age-gate");
+            if (!gate) return;
+            gate.classList.add("hidden");
+            document.documentElement.classList.remove("pnp-age-gate-open");
+            document.body.classList.remove("pnp-age-gate-open");
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            if (IS_HOME) { openGate(); return; }           // always show on homepage
+            if (getWithExpiry(KEY) !== "yes") openGate();   // elsewhere, show until confirmed
+        });
+    })();
+</script>
+
