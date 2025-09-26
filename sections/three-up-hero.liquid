@@ -139,7 +139,6 @@ grid-template-columns: repeat(3, minmax(0, 1fr));
 .three-up-hero__img{ width: calc(100% + 1px); }
 }
 
-
 /* Mobile: horizontal snap, no gap, no side padding */
 @media (max-width: 989px){
 .three-up-hero__track{
@@ -273,6 +272,45 @@ filter: blur(2px);
 @media (prefers-reduced-motion: reduce){
 .three-up-hero__img { transition: none; }
 }
+
+/* --- Coming Soon full-coverage overlay ---------------------------------- */
+/* TEMP LAUNCH HOLD: remove these styles when you launch */
+.three-up-hero__coming-soon{
+position:absolute; inset:0; z-index:5;
+display:grid; place-items:center;
+pointer-events:auto;               /* block clicks to tiles while active */
+}
+.three-up-hero__cs-backdrop{
+position:absolute; inset:0;
+background:rgba(0,0,0,.62);        /* dim background */
+backdrop-filter:saturate(90%) blur(1px);
+}
+.three-up-hero__cs-content{
+position:relative; z-index:1;
+text-align:center; color:#fff;
+padding:24px 20px; max-width:min(92vw, 720px);
+}
+.three-up-hero__cs-eyebrow{
+display:inline-block;
+font-size:.85rem; letter-spacing:.14em; text-transform:uppercase; opacity:.95;
+background:rgba(255,255,255,.12); padding:.35rem .7rem; border-radius:999px; margin-bottom:.75rem;
+}
+.three-up-hero__cs-title{
+margin:.25rem 0 .5rem; font-weight:800;
+font-size:clamp(28px, 5vw, 56px); line-height:1.05;
+}
+.three-up-hero__cs-copy{
+margin:0 auto; opacity:.95;
+font-size:clamp(14px, 1.6vw, 18px); line-height:1.4; max-width:46ch;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion:no-preference){
+.three-up-hero__cs-backdrop{ transition: opacity .3s ease; }
+.three-up-hero__coming-soon{ animation: cs-fade .35s ease both; }
+@keyframes cs-fade{ from{ opacity:0 } to{ opacity:1 } }
+}
+/* END TEMP LAUNCH HOLD: remove these styles when you launch */
 
 /* --- Coming Soon full-coverage overlay ---------------------------------- */
 /* TEMP LAUNCH HOLD: remove these styles when you launch */
