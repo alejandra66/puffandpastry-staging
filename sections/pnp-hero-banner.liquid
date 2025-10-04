@@ -1,13 +1,14 @@
-{% comment %} PNP – Hero Banner {% endcomment %}
+{% comment %} PNP – Hero Banner (with fixed px/vh height toggle) {% endcomment %}
 <section class="pnp-hero" style="position:relative;overflow:hidden;">
-    {% if section.settings.image != blank %}
-        {{ section.settings.image | image_url: width: 2400 | image_tag:
+    {% assign hero_img = section.settings.image %}
+    {% if hero_img != blank %}
+        {{ hero_img | image_url: width: 2400 | image_tag:
         loading: 'lazy',
         class: 'pnp-hero__img',
         alt: section.settings.heading | escape
         }}
     {% else %}
-        <div class="pnp-hero__placeholder" style="background:#ddd;height:{{ section.settings.height }}vh;"></div>
+        <div class="pnp-hero__placeholder"></div>
     {% endif %}
 
     <div class="pnp-hero__overlay" style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(0,0,0,{{ section.settings.overlay_opacity }}), rgba(0,0,0,{{ section.settings.overlay_opacity }}));"></div>
@@ -28,8 +29,51 @@
 </section>
 
 <style>
-    .pnp-hero__img{width:100%;height:{{ section.settings.height }}vh;object-fit:cover;display:block;}
-    @media (max-width: 768px){ .pnp-hero__img{ height: {{ section.settings.height_mobile }}vh; } }
+    /* Decide which height unit to use (no inline comparisons) */
+    {% if section.settings.height_unit == 'px' %}
+    {% assign use_px = true %}
+    {% else %}
+    {% assign use_px = false %}
+    {% endif %}
+
+    {% if use_px %}
+    {% assign hero_h_desktop = section.settings.height_px | append: 'px' %}
+    {% assign hero_h_mobile  = section.settings.height_mobile_px | append: 'px' %}
+    {% else %}
+    {% assign hero_h_desktop = section.settings.height | append: 'vh' %}
+    {% assign hero_h_mobile  = section.settings.height_mobile | append: 'vh' %}
+    {% endif %}
+
+    .pnp-hero__img,
+    .pnp-hero__placeholder{
+        width:100%;
+        height: {{ hero_h_desktop }};
+        object-fit: cover;
+        display:block;
+    }
+
+    @media (max-width: 768px){
+        .pnp-hero__img,
+        .pnp-hero__placeholder{
+            height: {{ hero_h_mobile }};
+        }
+    }
+
+    /* If using vh, add dvh fallback for better mobile stability */
+    {% if use_px == false %}
+    .pnp-hero__img,
+    .pnp-hero__placeholder{
+        height: {{ section.settings.height }}vh;
+        height: {{ section.settings.height }}dvh;
+    }
+    @media (max-width: 768px){
+        .pnp-hero__img,
+        .pnp-hero__placeholder{
+            height: {{ section.settings.height_mobile }}vh;
+            height: {{ section.settings.height_mobile }}dvh;
+        }
+    }
+    {% endif %}
 </style>
 
 {% schema %}
@@ -42,14 +86,27 @@
     { "type": "text", "id": "subheading", "label": "Subheading" },
     { "type": "text", "id": "btn_label", "label": "Button label", "default": "Shop now" },
     { "type": "url", "id": "btn_link", "label": "Button link" },
-    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity",
-      "min": 0, "max": 0.7, "step": 0.1, "default": 0.4 },
-    { "type": "range", "id": "height", "label": "Desktop height (vh)", "min": 40, "max": 90, "step": 5, "default": 60 },
-    { "type": "range", "id": "height_mobile", "label": "Mobile height (vh)", "min": 30, "max": 70, "step": 5, "default": 45 },
-    { "type": "select", "id": "align", "label": "Text alignment", "options":[
-      {"value":"flex-start","label":"Left"},
-      {"value":"center","label":"Center"}
-    ], "default":"flex-start" }
+
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 0.7, "step": 0.1, "default": 0.4 },
+
+    { "type": "select", "id": "height_unit", "label": "Height unit",
+      "options":[
+        {"value":"vh","label":"Viewport (vh) – responsive"},
+        {"value":"px","label":"Fixed (px) – same across browsers"}
+      ],
+      "default":"px"
+    },
+
+    { "type": "range", "id": "height", "label": "Desktop height (vh)", "min": 30, "max": 90, "step": 5, "default": 50 },
+    { "type": "range", "id": "height_mobile", "label": "Mobile height (vh)", "min": 25, "max": 70, "step": 5, "default": 40 },
+
+    { "type": "range", "id": "height_px", "label": "Desktop height (px)", "min": 240, "max": 800, "step": 10, "default": 420 },
+    { "type": "range", "id": "height_mobile_px", "label": "Mobile height (px)", "min": 200, "max": 700, "step": 10, "default": 320 },
+
+    { "type": "select", "id": "align", "label": "Text alignment",
+      "options":[{"value":"flex-start","label":"Left"},{"value":"center","label":"Center"}],
+      "default":"flex-start"
+    }
   ],
   "presets": [{ "name": "PNP Hero banner" }]
 }

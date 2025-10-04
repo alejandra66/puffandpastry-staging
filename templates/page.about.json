@@ -4,14 +4,17 @@
     "hero": {
       "type": "pnp-hero-banner",
       "settings": {
+        "kicker": "",
         "heading": "Our Story",
         "subheading": "How Puff & Pastry came to be",
-        "kicker": "",
         "btn_label": "",
         "btn_link": "",
         "overlay_opacity": 0.4,
+        "height_unit": "px",
         "height": 50,
         "height_mobile": 40,
+        "height_px": 420,
+        "height_mobile_px": 320,
         "align": "flex-start"
       }
     },
@@ -75,11 +78,10 @@
       "type": "pnp-rich-text",
       "settings": { "heading": "" },
       "blocks": {
-        "t":   { "type": "text",   "settings": { "text": "<p>Ready to try a box?</p>" } },
-        "b1":  { "type": "button", "settings": { "button_label": "Shop the Menu", "button_link": "/collections/all" } },
-        "b2":  { "type": "button", "settings": { "button_label": "Join Puff Points", "button_link": "/pages/rewards" } }
+        "t":  { "type": "text",   "settings": { "text": "<p>Ready to taste the difference?</p>" } },
+        "b1": { "type": "button", "settings": { "button_label": "Shop the Menu", "button_link": "/collections/all" } }
       },
-      "block_order": ["t", "b1", "b2"]
+      "block_order": ["t", "b1"]
     }
   },
 
