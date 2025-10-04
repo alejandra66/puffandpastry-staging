@@ -709,6 +709,196 @@
         "show_divider": true
       }
     },
+    "section_tzKp8D": {
+      "type": "section",
+      "blocks": {
+        "image_68EyXF": {
+          "type": "image",
+          "settings": {
+            "image": "shopify://shop_images/Fun_Fetti_1.png",
+            "link": "",
+            "image_ratio": "adapt",
+            "width": "custom",
+            "custom_width": 46,
+            "width_mobile": "custom",
+            "custom_width_mobile": 88,
+            "height": "fit",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "padding-block-start": 0,
+            "padding-block-end": 0,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {}
+        },
+        "group_X8Y7QK": {
+          "type": "group",
+          "settings": {
+            "link": "",
+            "open_in_new_tab": false,
+            "content_direction": "column",
+            "vertical_on_mobile": true,
+            "horizontal_alignment": "flex-start",
+            "vertical_alignment": "center",
+            "align_baseline": false,
+            "horizontal_alignment_flex_direction_column": "center",
+            "vertical_alignment_flex_direction_column": "center",
+            "gap": 6,
+            "width": "custom",
+            "custom_width": 100,
+            "width_mobile": "fill",
+            "custom_width_mobile": 100,
+            "height": "fit",
+            "custom_height": 100,
+            "inherit_color_scheme": true,
+            "color_scheme": "",
+            "background_media": "none",
+            "video_position": "cover",
+            "background_image_position": "cover",
+            "border": "none",
+            "border_width": 1,
+            "border_opacity": 100,
+            "border_radius": 0,
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
+            "padding-block-start": 0,
+            "padding-block-end": 12,
+            "padding-inline-start": 0,
+            "padding-inline-end": 0
+          },
+          "blocks": {
+            "text_nFBMbH": {
+              "type": "text",
+              "name": "t:names.heading",
+              "settings": {
+                "text": "<h1><strong>Fun Fetti</strong></h1>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "h3",
+                "font": "var(--font-body--family)",
+                "font_size": "1rem",
+                "line_height": "normal",
+                "letter_spacing": "normal",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "text_PTTaAn": {
+              "type": "text",
+              "settings": {
+                "text": "<p>A soft, chewy cookie speckled with rainbow sprinkles and brimming with birthday cake magic. Sweet, playful, and joyfully nostalgic like a celebration in every bite.</p>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
+                "type_preset": "custom",
+                "font": "var(--font-body--family)",
+                "font_size": "1.125rem",
+                "line_height": "normal",
+                "letter_spacing": "tight",
+                "case": "none",
+                "wrap": "pretty",
+                "color": "var(--color-foreground)",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "product_card_xr7Bdd": {
+              "type": "product-card",
+              "name": "t:names.product_card",
+              "settings": {
+                "product": "brown-butter-maple-pecan",
+                "product_card_gap": 4,
+                "inherit_color_scheme": true,
+                "color_scheme": "",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_radius": 0,
+                "padding-block-start": 0,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
+            "button_NpXjUy": {
+              "type": "button",
+              "name": "t:names.button",
+              "settings": {
+                "label": "See Details",
+                "link": "shopify://products/brown-butter-maple-pecan",
+                "open_in_new_tab": false,
+                "style_class": "button",
+                "width": "fit-content",
+                "custom_width": 100,
+                "width_mobile": "fit-content",
+                "custom_width_mobile": 100
+              },
+              "blocks": {}
+            }
+          },
+          "block_order": [
+            "text_nFBMbH",
+            "text_PTTaAn",
+            "product_card_xr7Bdd",
+            "button_NpXjUy"
+          ]
+        }
+      },
+      "block_order": [
+        "image_68EyXF",
+        "group_X8Y7QK"
+      ],
+      "name": "Flavor of the week Section #5",
+      "settings": {
+        "content_direction": "row",
+        "vertical_on_mobile": true,
+        "horizontal_alignment": "flex-start",
+        "vertical_alignment": "center",
+        "align_baseline": false,
+        "horizontal_alignment_flex_direction_column": "flex-start",
+        "vertical_alignment_flex_direction_column": "center",
+        "gap": 0,
+        "section_width": "page-width",
+        "section_height": "",
+        "section_height_custom": 50,
+        "color_scheme": "scheme-b8164878-5c14-4753-9791-373bc0080a58",
+        "background_media": "none",
+        "video_position": "cover",
+        "background_image_position": "cover",
+        "border": "none",
+        "border_width": 1,
+        "border_opacity": 100,
+        "border_radius": 0,
+        "toggle_overlay": true,
+        "overlay_color": "#efe5d1",
+        "overlay_style": "solid",
+        "gradient_direction": "to top",
+        "padding-block-start": 16,
+        "padding-block-end": 62
+      }
+    },
     "section_twip48": {
       "type": "section",
       "blocks": {
@@ -898,7 +1088,7 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
-            "padding-block-start": 75,
+            "padding-block-start": 19,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
@@ -1071,7 +1261,7 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
-            "padding-block-start": 75,
+            "padding-block-start": 29,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
@@ -1228,11 +1418,11 @@
         "image_VLdawY": {
           "type": "image",
           "settings": {
-            "image": "shopify://shop_images/Untitled_1000_x_1000_px.png",
+            "image": "shopify://shop_images/Lemon_Blue_Berry_Cookie.png",
             "link": "",
             "image_ratio": "adapt",
             "width": "custom",
-            "custom_width": 50,
+            "custom_width": 46,
             "width_mobile": "custom",
             "custom_width_mobile": 88,
             "height": "fit",
@@ -1240,7 +1430,7 @@
             "border_width": 1,
             "border_opacity": 100,
             "border_radius": 0,
-            "padding-block-start": 75,
+            "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
             "padding-inline-end": 0
@@ -1409,7 +1599,7 @@
         "overlay_style": "solid",
         "gradient_direction": "to top",
         "padding-block-start": 16,
-        "padding-block-end": 16
+        "padding-block-end": 62
       }
     }
   },
@@ -1418,6 +1608,7 @@
     "section_mPhcbM",
     "three_up_hero_gXGe9y",
     "section_header_rrawEY",
+    "section_tzKp8D",
     "section_twip48",
     "section_Ec3bwV",
     "section_hP6gkJ",

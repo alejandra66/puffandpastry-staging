@@ -2,118 +2,67 @@
   "name": "About",
   "sections": {
     "hero": {
-      "type": "image-banner",
-      "settings": {
-        "heading": "Elevating Everyday Moments with Freshly Baked Indulgence",
-        "text": "",
-        "show_text_box": true
-      }
+      "type": "pnp-rich-text",
+      "settings": { "heading": "Elevating Everyday Moments with Freshly Baked Indulgence" },
+      "blocks": {
+        "sep": { "type": "text", "settings": { "text": "<p>⸻</p>" } }
+      },
+      "block_order": ["sep"]
     },
+
     "intro": {
-      "type": "rich-text",
+      "type": "pnp-rich-text",
+      "settings": { "heading": "Intro Section (Brand Promise)" },
       "blocks": {
-        "intro": {
-          "type": "text",
-          "settings": {
-            "text": "<p>At Puff & Pastry, we believe life’s sweetest moments deserve more than ordinary cookies. Our bakery was born from the idea that every treat should feel like an experience — crafted with care, delivered with ease, and enjoyed as part of your daily ritual.</p>"
-          }
-        }
+        "t1": { "type": "text", "settings": { "text": "<p>At Puff & Pastry, we believe life’s sweetest moments deserve more than ordinary cookies. Our bakery was born from the idea that every treat should feel like an experience — crafted with care, delivered with ease, and enjoyed as part of your daily ritual.</p>" } },
+        "sep": { "type": "text", "settings": { "text": "<p>⸻</p>" } }
       },
-      "block_order": ["intro"],
-      "settings": { "narrow_column": true }
+      "block_order": ["t1", "sep"]
     },
+
     "story": {
-      "type": "rich-text",
+      "type": "pnp-rich-text",
+      "settings": { "heading": "Our Story" },
       "blocks": {
-        "heading": { "type": "heading", "settings": { "heading": "Our Story" } },
-        "p1": {
-          "type": "text",
-          "settings": {
-            "text": "<p>What started as a small kitchen experiment with bold flavors and delicate textures quickly grew into a mission: to create cookies that feel as special as they taste. We combine timeless baking techniques with modern creativity to deliver desserts that surprise and delight.</p>"
-          }
-        },
-        "p2": {
-          "type": "text",
-          "settings": {
-            "text": "<p>Each recipe is tested until it’s perfected, ensuring every bite is golden, chewy, and unforgettable. And because indulgence should be simple, we bring our creations straight to your door with convenient next-day delivery.</p>"
-          }
-        }
+        "t1": { "type": "text", "settings": { "text": "<p>What started as a small kitchen experiment with bold flavors and delicate textures quickly grew into a mission: to create cookies that feel as special as they taste. We combine timeless baking techniques with modern creativity to deliver desserts that surprise and delight.</p>" } },
+        "t2": { "type": "text", "settings": { "text": "<p>Each recipe is tested until it’s perfected, ensuring every bite is golden, chewy, and unforgettable. And because indulgence should be simple, we bring our creations straight to your door with convenient next-day delivery.</p>" } },
+        "sep": { "type": "text", "settings": { "text": "<p>⸻</p>" } }
       },
-      "block_order": ["heading", "p1", "p2"],
-      "settings": { "narrow_column": true }
+      "block_order": ["t1", "t2", "sep"]
     },
+
     "why": {
-      "type": "multicolumn",
-      "settings": {
-        "title": "Why Choose Puff & Pastry",
-        "columns_desktop": 4,
-        "image_width": "full"
-      },
+      "type": "pnp-why-columns",
+      "settings": { "heading": "Why Choose Puff & Pastry" },
       "blocks": {
-        "c1": {
-          "type": "column",
-          "settings": {
-            "title": "Artisan Quality",
-            "text": "Handcrafted cookies made in small batches with premium ingredients."
-          }
-        },
-        "c2": {
-          "type": "column",
-          "settings": {
-            "title": "Unique Flavors",
-            "text": "A rotating menu that changes weekly, keeping every box exciting."
-          }
-        },
-        "c3": {
-          "type": "column",
-          "settings": {
-            "title": "Next-Day Delivery",
-            "text": "Fresh treats delivered locally so you can enjoy them at their best."
-          }
-        },
-        "c4": {
-          "type": "column",
-          "settings": {
-            "title": "Customer First",
-            "text": "From our Puff Points rewards program to personal touches, we’re here to make your dessert experience exceptional."
-          }
-        }
+        "b1": { "type": "why_item", "settings": { "icon": "🥐", "title": "Artisan Quality", "text": "<p>Handcrafted cookies made in small batches with premium ingredients.</p>" } },
+        "b2": { "type": "why_item", "settings": { "icon": "✨", "title": "Unique Flavors", "text": "<p>A rotating menu that changes weekly, keeping every box exciting.</p>" } },
+        "b3": { "type": "why_item", "settings": { "icon": "🚚", "title": "Next-Day Delivery", "text": "<p>Fresh treats delivered locally so you can enjoy them at their best.</p>" } },
+        "b4": { "type": "why_item", "settings": { "icon": "💛", "title": "Customer First", "text": "<p>From our Puff Points rewards program to personal touches, we’re here to make your dessert experience exceptional.</p>" } }
       },
-      "block_order": ["c1", "c2", "c3", "c4"]
+      "block_order": ["b1", "b2", "b3", "b4"]
     },
+
     "mission": {
-      "type": "rich-text",
+      "type": "pnp-rich-text",
+      "settings": { "heading": "Our Mission" },
       "blocks": {
-        "heading": { "type": "heading", "settings": { "heading": "Our Mission" } },
-        "text": {
-          "type": "text",
-          "settings": {
-            "text": "<p>We’re more than a cookie shop — we’re here to add joy to your day. Whether you’re celebrating a milestone, surprising someone special, or simply treating yourself, Puff & Pastry makes it easier to savor life’s sweetest moments.</p>"
-          }
-        }
+        "t1": { "type": "text", "settings": { "text": "<p>We’re more than a cookie shop — we’re here to add joy to your day. Whether you’re celebrating a milestone, surprising someone special, or simply treating yourself, Puff & Pastry makes it easier to savor life’s sweetest moments.</p>" } },
+        "sep": { "type": "text", "settings": { "text": "<p>⸻</p>" } }
       },
-      "block_order": ["heading", "text"],
-      "settings": { "narrow_column": true }
+      "block_order": ["t1", "sep"]
     },
+
     "cta": {
-      "type": "rich-text",
+      "type": "pnp-rich-text",
+      "settings": { "heading": "Call to Action" },
       "blocks": {
-        "button": {
-          "type": "button",
-          "settings": {
-            "button_label": "Shop the Menu",
-            "button_link": "/collections/all"
-          }
-        }
+        "t1": { "type": "text", "settings": { "text": "<p>✨ Ready to taste the difference? Explore this week’s cookie flavors and discover why Puff & Pastry is quickly becoming a favorite for cookie lovers across Washington DC, Arlington, Alexandria, Tysons, and beyond.</p>" } },
+        "btn": { "type": "button", "settings": { "button_label": "Shop the Menu", "button_link": "/collections/all" } }
       },
-      "block_order": ["button"],
-      "settings": {
-        "narrow_column": true,
-        "heading": "Ready to taste the difference?",
-        "text": "Explore this week’s cookie flavors and discover why Puff & Pastry is quickly becoming a favorite for cookie lovers across Washington DC, Arlington, Alexandria, Tysons, and beyond."
-      }
-    },
-    "main": { "type": "main-page", "settings": {} }
+      "block_order": ["t1", "btn"]
+    }
   },
-  "order": ["hero", "intro", "story", "why", "mission", "cta", "main"]
+
+  "order": ["hero", "intro", "story", "why", "mission", "cta"]
 }
