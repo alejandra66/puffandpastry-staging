@@ -2,38 +2,54 @@
   "name": "About",
   "sections": {
     "hero": {
-      "type": "pnp-rich-text",
-      "settings": { "heading": "Elevating Everyday Moments with Freshly Baked Indulgence" },
-      "blocks": {
-        "sep": { "type": "text", "settings": { "text": "<p>⸻</p>" } }
-      },
-      "block_order": ["sep"]
+      "type": "pnp-hero-banner",
+      "settings": {
+        "heading": "Our Story",
+        "subheading": "How Puff & Pastry came to be",
+        "kicker": "",
+        "btn_label": "",
+        "btn_link": "",
+        "overlay_opacity": 0.4,
+        "height": 50,
+        "height_mobile": 40,
+        "align": "flex-start"
+      }
     },
 
     "intro": {
       "type": "pnp-rich-text",
       "settings": { "heading": "Intro Section (Brand Promise)" },
       "blocks": {
-        "t1": { "type": "text", "settings": { "text": "<p>At Puff & Pastry, we believe life’s sweetest moments deserve more than ordinary cookies. Our bakery was born from the idea that every treat should feel like an experience — crafted with care, delivered with ease, and enjoyed as part of your daily ritual.</p>" } },
-        "sep": { "type": "text", "settings": { "text": "<p>⸻</p>" } }
+        "t1": {
+          "type": "text",
+          "settings": {
+            "text": "<p>At Puff & Pastry, we believe life’s sweetest moments deserve more than ordinary cookies. Our bakery was born from the idea that every treat should feel like an experience — crafted with care, delivered with ease, and enjoyed as part of your daily ritual.</p>"
+          }
+        }
       },
-      "block_order": ["t1", "sep"]
+      "block_order": ["t1"]
     },
 
-    "story": {
-      "type": "pnp-rich-text",
-      "settings": { "heading": "Our Story" },
-      "blocks": {
-        "t1": { "type": "text", "settings": { "text": "<p>What started as a small kitchen experiment with bold flavors and delicate textures quickly grew into a mission: to create cookies that feel as special as they taste. We combine timeless baking techniques with modern creativity to deliver desserts that surprise and delight.</p>" } },
-        "t2": { "type": "text", "settings": { "text": "<p>Each recipe is tested until it’s perfected, ensuring every bite is golden, chewy, and unforgettable. And because indulgence should be simple, we bring our creations straight to your door with convenient next-day delivery.</p>" } },
-        "sep": { "type": "text", "settings": { "text": "<p>⸻</p>" } }
-      },
-      "block_order": ["t1", "t2", "sep"]
+    "story_split": {
+      "type": "pnp-split-text-image",
+      "settings": {
+        "image_position": "right",
+        "kicker": "",
+        "heading": "Our Story",
+        "text": "<p>What started as a small kitchen experiment with bold flavors and delicate textures quickly grew into a mission: to create cookies that feel as special as they taste. We combine timeless baking techniques with modern creativity to deliver desserts that surprise and delight.</p><p>Each recipe is tested until it’s perfected, ensuring every bite is golden, chewy, and unforgettable. And because indulgence should be simple, we bring our creations straight to your door with convenient next-day delivery.</p>",
+        "btn_label": "",
+        "btn_link": ""
+      }
     },
 
     "why": {
       "type": "pnp-why-columns",
-      "settings": { "heading": "Why Choose Puff & Pastry" },
+      "settings": {
+        "heading": "Why Choose Puff & Pastry",
+        "variant": "home-strip",
+        "strip_bg": "#0e1a2b",
+        "strip_text": "#ffffff"
+      },
       "blocks": {
         "b1": { "type": "why_item", "settings": { "icon": "🥐", "title": "Artisan Quality", "text": "<p>Handcrafted cookies made in small batches with premium ingredients.</p>" } },
         "b2": { "type": "why_item", "settings": { "icon": "✨", "title": "Unique Flavors", "text": "<p>A rotating menu that changes weekly, keeping every box exciting.</p>" } },
@@ -43,26 +59,29 @@
       "block_order": ["b1", "b2", "b3", "b4"]
     },
 
-    "mission": {
-      "type": "pnp-rich-text",
-      "settings": { "heading": "Our Mission" },
-      "blocks": {
-        "t1": { "type": "text", "settings": { "text": "<p>We’re more than a cookie shop — we’re here to add joy to your day. Whether you’re celebrating a milestone, surprising someone special, or simply treating yourself, Puff & Pastry makes it easier to savor life’s sweetest moments.</p>" } },
-        "sep": { "type": "text", "settings": { "text": "<p>⸻</p>" } }
-      },
-      "block_order": ["t1", "sep"]
+    "mission_split": {
+      "type": "pnp-split-text-image",
+      "settings": {
+        "image_position": "left",
+        "kicker": "",
+        "heading": "Our Mission",
+        "text": "<p>We’re more than a cookie shop — we’re here to add joy to your day. Whether you’re celebrating a milestone, surprising someone special, or simply treating yourself, Puff & Pastry makes it easier to savor life’s sweetest moments.</p>",
+        "btn_label": "",
+        "btn_link": ""
+      }
     },
 
     "cta": {
       "type": "pnp-rich-text",
-      "settings": { "heading": "Call to Action" },
+      "settings": { "heading": "" },
       "blocks": {
-        "t1": { "type": "text", "settings": { "text": "<p>✨ Ready to taste the difference? Explore this week’s cookie flavors and discover why Puff & Pastry is quickly becoming a favorite for cookie lovers across Washington DC, Arlington, Alexandria, Tysons, and beyond.</p>" } },
-        "btn": { "type": "button", "settings": { "button_label": "Shop the Menu", "button_link": "/collections/all" } }
+        "t":   { "type": "text",   "settings": { "text": "<p>Ready to try a box?</p>" } },
+        "b1":  { "type": "button", "settings": { "button_label": "Shop the Menu", "button_link": "/collections/all" } },
+        "b2":  { "type": "button", "settings": { "button_label": "Join Puff Points", "button_link": "/pages/rewards" } }
       },
-      "block_order": ["t1", "btn"]
+      "block_order": ["t", "b1", "b2"]
     }
   },
 
-  "order": ["hero", "intro", "story", "why", "mission", "cta"]
+  "order": ["hero", "intro", "story_split", "why", "mission_split", "cta"]
 }
