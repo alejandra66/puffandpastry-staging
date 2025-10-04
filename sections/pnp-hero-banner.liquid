@@ -1,4 +1,4 @@
-{% comment %} PNP – Hero Banner (with fixed px/vh height toggle) {% endcomment %}
+{% comment %} PNP – Hero Banner (classic or home-card style, px/vh height) {% endcomment %}
 <section class="pnp-hero" style="position:relative;overflow:hidden;">
     {% assign hero_img = section.settings.image %}
     {% if hero_img != blank %}
@@ -11,16 +11,60 @@
         <div class="pnp-hero__placeholder"></div>
     {% endif %}
 
-    <div class="pnp-hero__overlay" style="position:absolute;inset:0;background:linear-gradient(0deg, rgba(0,0,0,{{ section.settings.overlay_opacity }}), rgba(0,0,0,{{ section.settings.overlay_opacity }}));"></div>
+    {%- comment -%} Base overlay {%- endcomment -%}
+    <div class="pnp-hero__overlay"
+         style="position:absolute;inset:0;background:rgba(0,0,0,{{ section.settings.overlay_opacity }});"></div>
+
+    {%- comment -%} Optional vignette for home-card vibe {%- endcomment -%}
+    {% if section.settings.vignette %}
+        <div class="pnp-hero__vignette"
+             style="position:absolute;inset:0;
+                background: radial-gradient(80% 80% at 50% 50%, rgba(0,0,0,0.0) 30%, rgba(0,0,0,0.55) 100%);">
+        </div>
+    {% endif %}
 
     <div class="pnp-hero__content"
          style="position:absolute;inset:0;display:flex;align-items:center;justify-content:{{ section.settings.align }};padding:clamp(16px, 3vw, 48px);">
-        <div style="max-width: 860px; color: #fff; text-align:{% if section.settings.align == 'center' %}center{% else %}left{% endif %};">
-            {% if section.settings.kicker != blank %}<div style="opacity:.9;margin-bottom:8px;">{{ section.settings.kicker }}</div>{% endif %}
-            {% if section.settings.heading != blank %}<h1 style="margin:0 0 12px 0;line-height:1.05;">{{ section.settings.heading }}</h1>{% endif %}
-            {% if section.settings.subheading != blank %}<p style="margin:0 0 16px 0;opacity:.95;font-size:1.125rem;">{{ section.settings.subheading }}</p>{% endif %}
+        {% comment %} Variant flags {% endcomment %}
+        {% if section.settings.variant == 'home-card' %}
+            {% assign is_card = true %}
+        {% else %}
+            {% assign is_card = false %}
+        {% endif %}
+
+        {% comment %} Text wrapper {% endcomment %}
+        <div class="pnp-hero__text"
+             style="max-width: {{ section.settings.text_max_width }}px; color:#fff; {% if is_card or section.settings.align == 'center' %}text-align:center; margin:0 auto;{% else %}text-align:left;{% endif %}">
+
+            {% if section.settings.kicker != blank %}
+                {% if is_card and section.settings.kicker_style == 'pill' %}
+                    <span style="display:inline-block;padding:6px 10px;border-radius:999px;
+                       background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.35);
+                       backdrop-filter: blur(4px); letter-spacing:.06em; text-transform:uppercase;
+                       font-size:.8rem; margin-bottom:10px;">
+            {{ section.settings.kicker }}
+          </span>
+                {% else %}
+                    <div style="opacity:.9;margin-bottom:8px;">{{ section.settings.kicker }}</div>
+                {% endif %}
+            {% endif %}
+
+            {% if section.settings.heading != blank %}
+                <h1 style="margin:0 0 12px 0;line-height:1.05; {% if is_card %}text-transform:uppercase; letter-spacing:.02em;{% endif %}">
+                    {{ section.settings.heading }}
+                </h1>
+            {% endif %}
+
+            {% if section.settings.subheading != blank %}
+                <p style="margin:0 0 16px 0;opacity:.95;font-size:1.125rem;">
+                    {{ section.settings.subheading }}
+                </p>
+            {% endif %}
+
             {% if section.settings.btn_label != blank and section.settings.btn_link != blank %}
-                <a href="{{ section.settings.btn_link }}" class="btn" style="display:inline-block;padding:12px 18px;border:1px solid #fff;color:#111;background:#fff;text-decoration:none;border-radius:999px;">
+                <a href="{{ section.settings.btn_link }}"
+                   class="btn"
+                   style="display:inline-block;padding:12px 18px;border:1px solid #fff;color:#111;background:#fff;text-decoration:none;border-radius:999px;">
                     {{ section.settings.btn_label }}
                 </a>
             {% endif %}
@@ -51,7 +95,6 @@
         object-fit: cover;
         display:block;
     }
-
     @media (max-width: 768px){
         .pnp-hero__img,
         .pnp-hero__placeholder{
@@ -87,7 +130,24 @@
     { "type": "text", "id": "btn_label", "label": "Button label", "default": "Shop now" },
     { "type": "url", "id": "btn_link", "label": "Button link" },
 
-    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 0.7, "step": 0.1, "default": 0.4 },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 0.7, "step": 0.1, "default": 0.5 },
+    { "type": "checkbox", "id": "vignette", "label": "Add vignette glow (home-card look)", "default": true },
+
+    { "type": "select", "id": "variant", "label": "Style variant",
+      "options":[
+        {"value":"classic","label":"Classic"},
+        {"value":"home-card","label":"Home card (like homepage)"}
+      ],
+      "default":"home-card"
+    },
+    { "type": "select", "id": "kicker_style", "label": "Kicker style",
+      "options":[
+        {"value":"text","label":"Text"},
+        {"value":"pill","label":"Pill (home-card)"}
+      ],
+      "default":"pill"
+    },
+    { "type": "range", "id": "text_max_width", "label": "Text max width (px)", "min": 320, "max": 1000, "step": 10, "default": 720 },
 
     { "type": "select", "id": "height_unit", "label": "Height unit",
       "options":[
@@ -105,7 +165,7 @@
 
     { "type": "select", "id": "align", "label": "Text alignment",
       "options":[{"value":"flex-start","label":"Left"},{"value":"center","label":"Center"}],
-      "default":"flex-start"
+      "default":"center"
     }
   ],
   "presets": [{ "name": "PNP Hero banner" }]
